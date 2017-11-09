@@ -2,10 +2,12 @@
 using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
+using System.Resources;
 using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
+using System.Windows;
 
 namespace proxyam.ViewModel
 {
@@ -21,18 +23,21 @@ namespace proxyam.ViewModel
         private ViewModelBase _currentPage;
         public LoginViewModel LoginPage { get; }
         public ErrorModalViewModel ErrorModalPage { get; }
-        public ProxySwitcherViewModel ProxySwitcherPage { get; }
+        public ProxySwitcherViewModel MainPage { get; }
+        public DialogViewModel DialogPage { get; }
         public SplashScreenViewModel SplashScreenPage { get; }
-        public ICommand ProxySwitcherCommand { get; private set; }
+        public SettingViewModel SettingPage { get; }
+
 
         public MainViewModel()
         {
             LoginPage = new LoginViewModel(this);
-            ProxySwitcherPage = new ProxySwitcherViewModel(this);
+            MainPage = new ProxySwitcherViewModel(this);
             SplashScreenPage = new SplashScreenViewModel();
             ErrorModalPage = new ErrorModalViewModel(this);
+            DialogPage = new DialogViewModel(this);
+            SettingPage = new SettingViewModel(this);
             CurrentPage = LoginPage;
-            ProxySwitcherCommand = new RelayCommand(ExecuteProxySwitcherLayout);
         }
 
         public ViewModelBase CurrentPage
@@ -41,9 +46,16 @@ namespace proxyam.ViewModel
             set => Set(() => CurrentPage, ref _currentPage, value);
         } 
 
-        private void ExecuteProxySwitcherLayout()
+        public void SetHomePage()
         {
-            CurrentPage = ProxySwitcherPage;
+            CurrentPage = MainPage;
         }
+
+        public string GetLanguageMessage(string key)
+        {
+            return (Application.Current.Resources[key] ?? "NULL").ToString();
+        }
+
+        
     }
 }

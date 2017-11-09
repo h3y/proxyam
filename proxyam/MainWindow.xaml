@@ -26,20 +26,27 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <ContentControl Content="{Binding Path=CurrentPage}" />
-        <materialDesign:PopupBox
-            HorizontalAlignment="Right" VerticalAlignment="Bottom"
-            Margin="32" x:Name="PopupBoxMenu"
-            Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-            IsPopupOpen="False" PopupMode="MouseOver">
-            <materialDesign:PopupBox.ToggleContent>
-                <materialDesign:PackIcon Width="24" Height="24" Kind="DotsHorizontal" Foreground="#fafafa" />
-            </materialDesign:PopupBox.ToggleContent>
-            <materialDesign:PopupBox.ToggleCheckedContent>
-                <materialDesign:PackIcon Width="24" Height="24" Kind="Close" Foreground="#fafafa" />
-            </materialDesign:PopupBox.ToggleCheckedContent>
-        </materialDesign:PopupBox>
-        <view:ErrorModal />
-    </Grid>
+    <materialDesign:DialogHost Identifier="RootDialog">
+        <materialDesign:DrawerHost>
+            <Grid>
+                <ContentControl Content="{Binding Path=CurrentPage}" />
+                <materialDesign:PopupBox
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Margin="32" x:Name="PopupBoxMenu"
+                    Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                    IsPopupOpen="False" PopupMode="MouseOver">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Width="24" Height="24" Kind="DotsHorizontal" Foreground="#fafafa" />
+                    </materialDesign:PopupBox.ToggleContent>
+                    <materialDesign:PopupBox.ToggleCheckedContent>
+                        <materialDesign:PackIcon Width="24" Height="24" Kind="Close" Foreground="#fafafa" />
+                    </materialDesign:PopupBox.ToggleCheckedContent>
+                    <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}"
+                            ToolTip="Settings"
+                            Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Settings" CommandParameter=""/>
+                </materialDesign:PopupBox>
+                <view:ErrorModal />
+            </Grid>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
 </Window>

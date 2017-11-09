@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
@@ -18,7 +13,7 @@ namespace proxyam.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        public ICommand LogInCommand { get; private set; }
+        public ICommand LogInCommand { get; }
         private Account _account;
         public MainViewModel MainPage { get; }
 
@@ -40,46 +35,52 @@ namespace proxyam.ViewModel
             MainPage.SplashScreenPage.SetShowSplash(true);
             var response = await MakeRequestAsync($"https://proxy.am/api.php?switch={apiKey}");
 
-            switch (response)
+            if (response == null)
+                ShowErrorWindow("InternetFailure");
+            else
             {
-                case "": break;
-                case "err0":
-                    MainPage.ErrorModalPage.ShowErrorModalCommand.Execute("Buy Tariff");
-
-                    break;
-                case "err1":
-                    MainPage.ErrorModalPage.ShowErrorModalCommand.Execute("Buy Tariff");
-                    System.Diagnostics.Process.Start("https://proxy.am/");
-                    break;
-                case "err2":
-                    MainPage.ErrorModalPage.ShowErrorModalCommand.Execute("Buy Tariff");
-                    System.Diagnostics.Process.Start("https://proxy.am/");
-                    break;
-                default:
-                    AccountModel = JsonConvert.DeserializeObject<Account>(response);
-                    switch (AccountModel.Status.ToLower())
-                    {
-                        case "ok":
-                            MainPage.ProxySwitcherCommand.Execute(null);
-                            break;
-                        case "err":
-                            MainPage.ErrorModalPage.ShowErrorModalCommand.Execute("Buy Tariff");
-                            break;
-                        case "wait":
-                            MainPage.ErrorModalPage.ShowErrorModalCommand.Execute("Buy Tariff");
-                            break;
-                        default:
-                            MainPage.ErrorModalPage.ShowErrorModalCommand.Execute(
-                                "ErrorMess" + AccountModel.Status.ToLower());
-                            break;
-                    }
-                    break;
+                switch (response)
+                {
+                    case "":
+                        ShowErrorWindow("LoginEmptyMessage");
+                        break;
+                    case "err0":
+                        ShowErrorWindow("LoginWrongApi");
+                        break;
+                    case "err1":
+                        ShowErrorWindow("LoginEndTariff");
+                        System.Diagnostics.Process.Start("https://proxy.am/");
+                        break;
+                    case "err2":
+                        ShowErrorWindow("LoginBuyTariff");
+                        System.Diagnostics.Process.Start("https://proxy.am/");
+                        break;
+                    default:
+                        AccountModel = JsonConvert.DeserializeObject<Account>(response);
+                        switch (AccountModel.Status.ToLower())
+                        {
+                            case "ok":
+                                MainPage.SetHomePage();
+                                break;
+                            case "err":
+                                ShowErrorWindow("LoginErrorTariff");
+                                break;
+                            case "wait":
+                                ShowErrorWindow("LoginWaitTariff");
+                                break;
+                            default:
+                                ShowErrorWindow("LoginErrorTariff", $": {AccountModel.Status.ToLower()}");
+                                break;
+                        }
+                        break;
+                }
             }
             MainPage.SplashScreenPage.SetShowSplash(false);
         }
 
         private async Task<String> MakeRequestAsync(string url)
         {
+            await Task.Delay(TimeSpan.FromSeconds(1.5));
             String responseText = await Task.Run(() =>
             {
                 try
@@ -87,37 +88,42 @@ namespace proxyam.ViewModel
                     HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                     WebResponse response = request?.GetResponse();
                     Stream responseStream = response?.GetResponseStream();
-                    Thread.Sleep(1000);
-                    return new StreamReader(responseStream).ReadToEnd();
+                    return new StreamReader(responseStream ?? throw new WebException()).ReadToEnd();
                 }
                 catch (WebException ex)
                 {
                     switch (ex.Status)
                     {
                         case WebExceptionStatus.UnknownError:
-                            MessageBox.Show("Неизвестная ошибка", "Ошибка");
+                            ShowErrorWindow("UnknownError");
                             break;
 
                         case WebExceptionStatus.ProtocolError:
-                            MessageBox.Show($"Код состояния: {(ex.Response as HttpWebResponse)?.StatusCode}", "Ошибка");
+                            ShowErrorWindow("ProtocolError", ((ex.Response as HttpWebResponse)?.StatusCode).ToString());
                             break;
 
                         case WebExceptionStatus.ConnectFailure:
-                            MessageBox.Show("Не удалось соединиться с HTTP-сервером.", "Ошибка");
+                            ShowErrorWindow("ConnectFailure");
                             break;
 
                         case WebExceptionStatus.SendFailure:
-                            MessageBox.Show("Не удалось отправить запрос HTTP-серверу.", "Ошибка");
+                            ShowErrorWindow("SendFailure");
                             break;
 
                         case WebExceptionStatus.ReceiveFailure:
-                            MessageBox.Show("Не удалось загрузить ответ от HTTP-сервера.", "Ошибка");
+                            ShowErrorWindow("ReceiveFailure");
                             break;
                     }
                 }
                 return null;
             });
             return responseText;
+        }
+
+        private void ShowErrorWindow(string message, string additionalMessage = "")
+        {
+            MainPage.ErrorModalPage.ShowErrorModalCommand.Execute(
+                MainPage.GetLanguageMessage(message) + additionalMessage);
         }
     }
 }
