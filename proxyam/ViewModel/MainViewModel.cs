@@ -25,6 +25,7 @@ namespace proxyam.ViewModel
         public LoginViewModel LoginPage { get; }
         public ErrorModalViewModel ErrorModalPage { get; }
         public ProxySwitcherViewModel MainPage { get; }
+        public FilterViewModel FilterPage { get; }
         public DialogViewModel DialogPage { get; }
         public SplashScreenViewModel SplashScreenPage { get; }
         public SettingViewModel SettingPage { get; }
@@ -35,6 +36,7 @@ namespace proxyam.ViewModel
         {
             LoginPage = new LoginViewModel(this);
             MainPage = new ProxySwitcherViewModel(this);
+            FilterPage = new FilterViewModel(this);
             SplashScreenPage = new SplashScreenViewModel();
             ErrorModalPage = new ErrorModalViewModel(this);
             DialogPage = new DialogViewModel(this);

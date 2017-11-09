@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
+
+namespace proxyam.ViewModel
+{
+    public class FilterViewModel : ViewModelBase
+    {
+        public MainViewModel MainPage { get; }
+
+        public FilterViewModel(MainViewModel mainPage)
+        {
+            MainPage = mainPage;
+        }
+    }
+}

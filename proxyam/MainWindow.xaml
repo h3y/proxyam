@@ -41,9 +41,16 @@
                     <materialDesign:PopupBox.ToggleCheckedContent>
                         <materialDesign:PackIcon Width="24" Height="24" Kind="Close" Foreground="#fafafa" />
                     </materialDesign:PopupBox.ToggleCheckedContent>
-                    <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}"
-                            ToolTip="Settings"
-                            Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Settings" CommandParameter=""/>
+                    <StackPanel Margin="16">
+                        <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}" 
+                                ToolTip="Settings" Name="Setting"
+                                Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Settings"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="0,10,0,0"
+                                ToolTip="Filter" Name="Filter"
+                                Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Filter"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                    </StackPanel>
                 </materialDesign:PopupBox>
                 <view:ErrorModal />
             </Grid>

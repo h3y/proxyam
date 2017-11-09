@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:proxyam.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
+             xmlns:model="clr-namespace:proxyam.Model"
              xmlns:converter="clr-namespace:proxyam.Converter"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModel:ProxySwitcherViewModel, IsDesignTimeCreatable=False}">
@@ -21,15 +22,13 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                  IsReadOnly="True" SelectionMode="Single" Width="790" 
+                  IsReadOnly="True" SelectionMode="Single" 
                   FontFamily="Roboto" HorizontalAlignment="Right">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Proxies}"
                                     Header="proxy"
                                     EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
-                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
                 <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Ip}"
                                                            Header="ip"
                                                            EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
