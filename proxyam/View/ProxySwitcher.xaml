@@ -1,12 +1,65 @@
 ﻿<UserControl x:Class="proxyam.View.ProxySwitcher"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:proxyam.View"
-        mc:Ignorable="d"
-        Height="300" Width="300">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:proxyam.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:proxyam.ViewModel"
+             xmlns:converter="clr-namespace:proxyam.Converter"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModel:ProxySwitcherViewModel, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converter:CountryConverter x:Key="CountryConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="280" Margin="71,10,0,0" VerticalAlignment="Top" Width="219" Background="#FF9B2B2B"/>
+        <DataGrid Margin="0,10,10,10" CanUserSortColumns="True" ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
+                  CanUserAddRows="False" AutoGenerateColumns="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                  IsReadOnly="True" SelectionMode="Single" Width="790" 
+                  FontFamily="Roboto" HorizontalAlignment="Right">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Proxies}"
+                                    Header="proxy"
+                                    EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}" />
+
+                <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
+                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Ip}"
+                                                           Header="ip"
+                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <DataGridTemplateColumn Header="country" SortMemberPath="Country" CanUserSort="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Source="{Binding Country, Converter={StaticResource CountryConverter}}"
+                                       Width="20" Height="20" HorizontalAlignment="Left" Margin="0,-3,0,0" />
+                                <TextBlock Text="{Binding Country}" HorizontalAlignment="Left"
+                                           Margin="30,0,0,0" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=City}"
+                                                           Header="city"
+                                                           MaxLength="255"
+                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Speed, StringFormat=0 Kbs}"
+                                                           Header="speed"
+                                                           MaxLength="255"
+                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Uptime, StringFormat=0 Min\\.}"
+                                                           Header="uptime"
+                                                           MaxLength="255"
+                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
 using System.Windows;
+using proxyam.Helper;
 
 namespace proxyam.ViewModel
 {
@@ -27,6 +28,7 @@ namespace proxyam.ViewModel
         public DialogViewModel DialogPage { get; }
         public SplashScreenViewModel SplashScreenPage { get; }
         public SettingViewModel SettingPage { get; }
+        public HttpUtil HttpUtil { get; }
 
 
         public MainViewModel()
@@ -37,6 +39,7 @@ namespace proxyam.ViewModel
             ErrorModalPage = new ErrorModalViewModel(this);
             DialogPage = new DialogViewModel(this);
             SettingPage = new SettingViewModel(this);
+            HttpUtil = new HttpUtil(this);
             CurrentPage = LoginPage;
         }
 
@@ -48,6 +51,7 @@ namespace proxyam.ViewModel
 
         public void SetHomePage()
         {
+            MainPage.LoadProxy();
             CurrentPage = MainPage;
         }
 
