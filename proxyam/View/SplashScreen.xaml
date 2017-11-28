@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Grid>
-        <Grid Background="Black" Opacity="0.4" />
+        <!--<Grid Background="Black" Opacity="0.4" />-->
         <materialDesign:Card Height="48" Width="48" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                              VerticalAlignment="Stretch">
             <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" 

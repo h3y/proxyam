@@ -34,7 +34,6 @@ namespace proxyam.ViewModel
 
         public MainViewModel()
         {
-            LoginPage = new LoginViewModel(this);
             MainPage = new ProxySwitcherViewModel(this);
             FilterPage = new FilterViewModel(this);
             SplashScreenPage = new SplashScreenViewModel();
@@ -42,6 +41,7 @@ namespace proxyam.ViewModel
             DialogPage = new DialogViewModel(this);
             SettingPage = new SettingViewModel(this);
             HttpUtil = new HttpUtil(this);
+            LoginPage = new LoginViewModel(this);
             CurrentPage = LoginPage;
         }
 

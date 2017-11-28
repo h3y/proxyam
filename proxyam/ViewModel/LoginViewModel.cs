@@ -10,22 +10,33 @@ using proxyam.Model;
 
 namespace proxyam.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+    public sealed class LoginViewModel : ViewModelBase
     {
+        private string _apiKey;
         public ICommand LogInCommand { get; }
-
         public MainViewModel MainPage { get; }
 
         public LoginViewModel(MainViewModel mainPage)
         {
             MainPage = mainPage;
-            LogInCommand = new RelayCommand<string>(LogInMehod);
+            LogInCommand = new RelayCommand(LogInMehod);
+            if (!Properties.Settings.Default.apiKey.Equals(""))
+            {
+                ApiKey = Properties.Settings.Default.apiKey;
+                //LogInMehod();
+            }
         }
 
-        private async void LogInMehod(string apiKey)
+        public string ApiKey
+        {
+            get => _apiKey;
+            set => Set(() => ApiKey, ref _apiKey, value);
+        }
+
+        private async void LogInMehod()
         {
             MainPage.SplashScreenPage.SetShowSplash(true);
-            var response = await MainPage.HttpUtil.MakeRequestAsync($"https://proxy.am/api.php?switch={apiKey}",1.5);
+            var response = await MainPage.HttpUtil.MakeRequestAsync($"https://proxy.am/api.php?switch={ApiKey}", 1.5);
 
             if (response == null)
                 MainPage.HttpUtil.ShowErrorWindow("InternetFailure");
@@ -52,6 +63,8 @@ namespace proxyam.ViewModel
                         switch (AccountModel.Status.ToLower())
                         {
                             case "ok":
+                                Properties.Settings.Default.apiKey = ApiKey;
+                                Properties.Settings.Default.Save();
                                 MainPage.SetHomePage();
                                 break;
                             case "err":
@@ -61,7 +74,8 @@ namespace proxyam.ViewModel
                                 MainPage.HttpUtil.ShowErrorWindow("LoginWaitTariff");
                                 break;
                             default:
-                                MainPage.HttpUtil.ShowErrorWindow("LoginErrorTariff", $": {AccountModel.Status.ToLower()}");
+                                MainPage.HttpUtil.ShowErrorWindow("LoginErrorTariff",
+                                    $": {AccountModel.Status.ToLower()}");
                                 break;
                         }
                         break;

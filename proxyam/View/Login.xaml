@@ -25,7 +25,7 @@
                     <materialDesign:PackIcon VerticalAlignment="Center" Kind="Key"
                                              Foreground="{Binding BorderBrush, ElementName=ApiTextBox}"
                                              RenderTransformOrigin="0.875,1.406" Margin="0,15,5,0" />
-                    <TextBox x:Name="ApiTextBox"
+                    <TextBox x:Name="ApiTextBox" Text="{Binding Path=ApiKey, Mode=TwoWay}"
                              materialDesign:HintAssist.Hint="{DynamicResource LoginHint}"
                              Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Height="45" Width="170"
                              FontSize="16px" />
@@ -33,7 +33,7 @@
 
                 <Button Grid.Row="1" x:Name="ConnectBtn"
                         Style="{DynamicResource MaterialDesignFlatButton}"
-                        Content="{DynamicResource LoginButton}" Margin="0,5,0,0" Command="{Binding Path=LogInCommand}" CommandParameter="{Binding ElementName=ApiTextBox, Path=Text}"
+                        Content="{DynamicResource LoginButton}" Margin="0,5,0,0" Command="{Binding Path=LogInCommand}"
                         Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
             </Grid>
         </materialDesign:Card>
