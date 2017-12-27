@@ -13,7 +13,7 @@ namespace proxyam.ViewModel
     {
         public MainViewModel MainPage;
         private ProxyModel _proxyDataModel;
-
+ 
         public ProxySwitcherViewModel(MainViewModel mainPage)
         {
             MainPage = mainPage;
@@ -26,7 +26,7 @@ namespace proxyam.ViewModel
             set => Set(() => ProxyDataModel, ref _proxyDataModel, value);
         }
 
-        public async void LoadProxy()
+        public async Task LoadProxy()
         {
           var response  = await MainPage.HttpUtil.MakeRequestAsync(AccountModel.Url);
           ProxyDataModel = JsonConvert.DeserializeObject<ProxyModel>(response);

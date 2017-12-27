@@ -18,7 +18,7 @@ namespace proxyam.Model
     [JsonObject(MemberSerialization.OptOut)]
     public class Proxy : ObservableObject
     {
-        public Proxy(ProxyStatus status, string proxies, string ip, string country, string city, string speed, string uptime)
+        public Proxy(ProxyStatus status, string proxies, string ip, string country, string city, double speed, double uptime)
         {
             _status = status;
             Proxies = proxies;
@@ -47,9 +47,9 @@ namespace proxyam.Model
         [JsonProperty("city")]
         public string City { get; set; }
         [JsonProperty("speed")]
-        public string Speed { get; set; }
+        public double Speed { get; set; }
         [JsonProperty("uptime")]
-        public string Uptime { get; set; }
+        public double Uptime { get; set; }
 
         public ProxyStatus Status
         {

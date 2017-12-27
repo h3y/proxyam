@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
 using System.Windows;
 using proxyam.Helper;
+using System.Threading.Tasks;
 
 namespace proxyam.ViewModel
 {
@@ -51,9 +52,11 @@ namespace proxyam.ViewModel
             set => Set(() => CurrentPage, ref _currentPage, value);
         } 
 
-        public void SetHomePage()
+        public async Task SetHomePage()
         {
-            MainPage.LoadProxy();
+            await MainPage.LoadProxy();
+            await MainPage.MainPage.FilterPage.InitFilter();
+            
             CurrentPage = MainPage;
         }
 

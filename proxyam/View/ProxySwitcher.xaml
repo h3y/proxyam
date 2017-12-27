@@ -21,10 +21,10 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Border Padding="10,26,0,26" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="230">
+        <!--<Border Padding="10,26,0,26" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="230">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="101*" />
@@ -76,7 +76,7 @@
                     <Button  Margin="0,10,0,0" Content="DISCONNECT" Height="40" Width="245"/>
                 </StackPanel>
             </Grid>
-        </Border>
+        </Border>-->
         <DataGrid Grid.Column="1" Margin="10,10,10,10" CanUserSortColumns="True"
                   ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
                   CanUserAddRows="False" AutoGenerateColumns="False"
@@ -84,7 +84,7 @@
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8"
                   IsReadOnly="True" SelectionMode="Single"
-                  FontFamily="Roboto">
+                  FontFamily="Roboto" MouseDoubleClick="DataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="40">
                     <DataGridTemplateColumn.CellTemplate>

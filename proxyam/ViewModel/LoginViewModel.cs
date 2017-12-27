@@ -65,7 +65,7 @@ namespace proxyam.ViewModel
                             case "ok":
                                 Properties.Settings.Default.apiKey = ApiKey;
                                 Properties.Settings.Default.Save();
-                                MainPage.SetHomePage();
+                                await MainPage.SetHomePage();
                                 break;
                             case "err":
                                 MainPage.HttpUtil.MainPage.HttpUtil.ShowErrorWindow("LoginErrorTariff");
