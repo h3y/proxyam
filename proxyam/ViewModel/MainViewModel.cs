@@ -56,7 +56,6 @@ namespace proxyam.ViewModel
         {
             await MainPage.LoadProxy();
             await MainPage.MainPage.FilterPage.InitFilter();
-            
             CurrentPage = MainPage;
         }
 

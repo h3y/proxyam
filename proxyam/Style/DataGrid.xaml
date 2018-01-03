@@ -67,31 +67,31 @@
     <Style x:Key="ScrollBarThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Margin" Value="2,0,1,0" />
+        <Setter Property="Margin" Value="-15,0,15,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle Fill="#2196F3" Margin="2" />
+                    <Border Background="#2196F3" Width="6" CornerRadius="2" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Border CornerRadius="0,4,0,4">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="18" />
+                <RowDefinition MaxHeight="18" Height="Auto"/>
                 <RowDefinition Height="*" />
-                <RowDefinition MaxHeight="18" />
+                <RowDefinition MaxHeight="18" Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <RepeatButton Grid.Row="0" Height="18"
+            <!--<RepeatButton Grid.Row="0" Height="18"
                           Style="{StaticResource ScrollBarLineButtonStyle}"
-                          Command="ScrollBar.LineUpCommand" />
+                          Command="ScrollBar.LineUpCommand" />-->
             <Track Name="PART_Track" Grid.Row="1"
                    IsDirectionReversed="True">
                 <Track.ViewportSize>200</Track.ViewportSize>
-                <Track.Opacity>0.8</Track.Opacity>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButtonStyle}" />
                 </Track.DecreaseRepeatButton>
@@ -102,10 +102,11 @@
                     <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource ScrollBarPageButtonStyle}" />
                 </Track.IncreaseRepeatButton>
             </Track>
-            <RepeatButton Grid.Row="2" Height="18"
+            <!--<RepeatButton Grid.Row="2" Height="18"
                           Style="{StaticResource ScrollBarLineButtonBottomStyle}"
-                          Command="ScrollBar.LineDownCommand" />
+                          Command="ScrollBar.LineDownCommand" />-->
         </Grid>
+        </Border>
     </ControlTemplate>
 
     <Style TargetType="{x:Type ScrollBar}">

@@ -3,157 +3,177 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:proxyam.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
-             xmlns:model="clr-namespace:proxyam.Model"
              xmlns:converter="clr-namespace:proxyam.Converter"
              mc:Ignorable="d" FontFamily="Roboto" FontSize="16"
-             d:DataContext="{d:DesignInstance Type=viewModel:ProxySwitcherViewModel, IsDesignTimeCreatable=False}">
+             d:DataContext="{d:DesignInstance Type=viewModel:ProxySwitcherViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/proxyam;component/Style/DataGrid.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converter:CountryConverter x:Key="CountryConverter" />
+            <converter:CompareSizeConverter x:Key="CompareSizeConverter" />
+            <DataTemplate x:Key="LargeGrid">
+                <DataGrid CanUserSortColumns="True"
+                          ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
+                          CanUserAddRows="False" AutoGenerateColumns="False"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                          IsReadOnly="True" SelectionMode="Single"
+                          FontFamily="Roboto" FontSize="14" FontWeight="SemiBold">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="40*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <materialDesign:PackIcon Height="18" Width="18" Kind="HelpCircleOutline"
+                                                             x:Name="status" HorizontalAlignment="Center" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="question">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="HelpCircleOutline" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="link">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="LinkVariant" />
+                                            <Setter TargetName="status" Property="Foreground"
+                                                    Value="#2196F3" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="error">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="CloseCircleOutline" />
+                                            <Setter TargetName="status" Property="Foreground"
+                                                    Value="#F44336" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="success">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="Check" />
+                                            <Setter TargetName="status" Property="Foreground"
+                                                    Value="#2E7D32" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Binding="{Binding Path=Proxies}" Header="proxy" Width="170*" />
+
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Ip}" Header="ip" Width="125*" />
+
+                        <DataGridTemplateColumn Header="country" SortMemberPath="Country" CanUserSort="True"
+                                                Width="85*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                               Source="{Binding Country, Converter={StaticResource CountryConverter}}"
+                                               Width="20" Height="20" Margin="0,-2,0,0" HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Top" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Country}" HorizontalAlignment="Left"
+                                                   Padding="10,0,0,0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=City}" Header="city"
+                                                                   Width="140*" />
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Speed, StringFormat=0 Kbs}"
+                                                                   Header="speed" Width="95*" />
+                        <materialDesign:MaterialDataGridTextColumn
+                            Binding="{Binding Path=Uptime, StringFormat=0 Min\\.}"
+                            Header="uptime" Width="90*" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DataTemplate>
+            <DataTemplate x:Key="MiniGrid">
+                <DataGrid CanUserSortColumns="True"
+                          ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
+                          CanUserAddRows="False" AutoGenerateColumns="False"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                          IsReadOnly="True" SelectionMode="Single"
+                          FontFamily="Roboto" FontSize="14" FontWeight="SemiBold">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="40*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <materialDesign:PackIcon Height="18" Width="18" Kind="HelpCircleOutline" x:Name="status" HorizontalAlignment="Center" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="question">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="HelpCircleOutline" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="link">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="LinkVariant" />
+                                            <Setter TargetName="status" Property="Foreground"
+                                                    Value="#2196F3" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="error">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="CloseCircleOutline" />
+                                            <Setter TargetName="status" Property="Foreground"
+                                                    Value="#F44336" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="success">
+                                            <Setter TargetName="status" Property="Kind"
+                                                    Value="Check" />
+                                            <Setter TargetName="status" Property="Foreground"
+                                                    Value="#2E7D32" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Proxies}" Header="proxy" Width="170*" />
+                        <DataGridTemplateColumn Header="country" SortMemberPath="Country" CanUserSort="True"
+                                                Width="85*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                               Source="{Binding Country, Converter={StaticResource CountryConverter}}"
+                                               Width="20" Height="20" Margin="0,-2,0,0" HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Top" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Country}" HorizontalAlignment="Left"
+                                                   Padding="10,0,0,0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <!--<Border Padding="10,26,0,26" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="230">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="101*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                    <Label Content="Account Info" FontWeight="Medium" Margin="0,-10,0,0" />
-                    <Label Content="Tariff" />
-                    <Label Content="Proxy" />
-                    <Label Content="Threads" />
-                    <Label Content="End" />
-                    <Label Content="Proxy Info" FontWeight="Medium" Margin="0,28,0,0" />
-                    <Label Content="Good" />
-                    <Label Content="Bad" />
-                </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
-                    <materialDesign:PackIcon Foreground="#2196F3" Kind="Account" Width="28" Height="28"
-                                             HorizontalAlignment="Right" Margin="0,-10,0,0" VerticalAlignment="Stretch" />
-                    <Label Content="none" />
-                    <Label Content="none" />
-                    <Label Content="none" />
-                    <Label Content="none" />
-                    <materialDesign:PackIcon Foreground="#2196F3" Kind="InformationOutline" Width="28" Height="28"
-                                             HorizontalAlignment="Right" Margin="0,28,0,0" VerticalAlignment="Stretch" />
-                    <Label Content="none" />
-                    <Label Content="none" />
-                </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Margin="0,28,0,0">
-                    <Border BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="101*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                                <Label Content="Connect" />
-                                <Label Content="Online" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
-                                <Label Content="none" HorizontalAlignment="Right" />
-                                <Label Content="00:00:00" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <Button  Margin="0,10,0,0" Content="DISCONNECT" Height="40" Width="245"/>
-                </StackPanel>
-            </Grid>
-        </Border>-->
-        <DataGrid Grid.Column="1" Margin="10,10,10,10" CanUserSortColumns="True"
-                  ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
-                  CanUserAddRows="False" AutoGenerateColumns="False"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-                  materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                  IsReadOnly="True" SelectionMode="Single"
-                  FontFamily="Roboto" MouseDoubleClick="DataGrid_MouseDoubleClick">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Width="40">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <materialDesign:PackIcon Kind="HelpCircleOutline" x:Name="status" />
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="question">
-                                    <Setter TargetName="status" Property="Kind"
-                                            Value="HelpCircleOutline" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="link">
-                                    <Setter TargetName="status" Property="Kind"
-                                            Value="LinkVariant" />
-                                    <Setter TargetName="status" Property="Foreground"
-                                            Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="error">
-                                    <Setter TargetName="status" Property="Kind"
-                                            Value="CloseCircleOutline" />
-                                    <Setter TargetName="status" Property="Foreground"
-                                            Value="#F44336" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="success">
-                                    <Setter TargetName="status" Property="Kind"
-                                            Value="Check" />
-                                    <Setter TargetName="status" Property="Foreground"
-                                            Value="#2E7D32" />
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn Binding="{Binding Path=Proxies}" Width="170"
-                                    Header="proxy"
-                                    EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}" />
-
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Ip}" Width="130"
-                                                           Header="ip"
-                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <DataGridTemplateColumn Header="country" SortMemberPath="Country" CanUserSort="True" Width="85">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Image Source="{Binding Country, Converter={StaticResource CountryConverter}}"
-                                       Width="20" Height="20" HorizontalAlignment="Left" Margin="0,-3,0,0" />
-                                <TextBlock Text="{Binding Country}" HorizontalAlignment="Left"
-                                           Margin="30,0,0,0" />
-                            </Grid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=City}" Width="140"
-                                                           Header="city"
-                                                           MaxLength="255"
-                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Speed, StringFormat=0 Kbs}"
-                                                           Width="95"
-                                                           Header="speed"
-                                                           MaxLength="255"
-                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Uptime, StringFormat=0 Min\\.}"
-                                                           Width="95*"
-                                                           Header="uptime"
-                                                           MaxLength="255"
-                                                           EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-
-            </DataGrid.Columns>
-        </DataGrid>
+    <Grid HorizontalAlignment="Stretch" Margin="0,0,-15,0">
+        <ContentControl Content="{Binding}">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="ContentTemplate" Value="{StaticResource LargeGrid}" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding ActualWidth,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource CompareSizeConverter}}"
+                            Value="true">
+                            <Setter Property="ContentTemplate" Value="{StaticResource MiniGrid}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
     </Grid>
 </UserControl>
