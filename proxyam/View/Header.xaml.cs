@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace proxyam.View
 {
     /// <summary>
-    /// Логика взаимодействия для InformationPage.xaml
+    /// Логика взаимодействия для Header.xaml
     /// </summary>
-    public partial class InformationPage : UserControl
+    public partial class Header : UserControl
     {
-        public InformationPage()
+        public Header()
         {
             InitializeComponent();
         }

@@ -28,33 +28,61 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <materialDesign:DialogHost Identifier="RootDialog">
-        <materialDesign:DrawerHost>
+    <materialDesign:DialogHost Identifier="RootDialog" >
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}" >
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+                    <ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}" 
+                                DockPanel.Dock="Top"
+                                HorizontalAlignment="Right" Margin="16"
+                                IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="0"  >
+                        <ListBoxItem Content="123"></ListBoxItem>
+                        <ListBoxItem Content="1234"></ListBoxItem>
+                        <ListBoxItem Content="12345"></ListBoxItem>
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
             <Grid>
-                <ContentControl Content="{Binding Path=CurrentPage}" />
-                <materialDesign:PopupBox
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <materialDesign:ColorZone Grid.Row="0" Padding="8" materialDesign:ShadowAssist.ShadowDepth="Depth4" Mode="PrimaryMid">
+                    <view:Header/>
+                </materialDesign:ColorZone>
+                <view:HeaderStatus Grid.Row="1" Height="60"></view:HeaderStatus>
+                <Grid Grid.Row="2">
+                    <Grid.Background>
+                        <!--<ImageBrush ImageSource="C:\Users\slavik glodan\Desktop\background.jpg" Stretch="None"/>-->
+                        <ImageBrush ImageSource="Resources/background.jpg" TileMode="FlipY" Stretch="Uniform" AlignmentY="Top" Viewport="0,0,150,150" ViewportUnits="Absolute" Opacity="0.8" />
+                    </Grid.Background>
+                    <ContentControl Content="{Binding Path=CurrentPage}" />
+                    <materialDesign:PopupBox
                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
                     Margin="32" x:Name="PopupBoxMenu"
                     Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                     IsPopupOpen="False" PopupMode="MouseOver">
-                    <materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PackIcon Width="24" Height="24" Kind="DotsHorizontal" Foreground="#fafafa" />
-                    </materialDesign:PopupBox.ToggleContent>
-                    <materialDesign:PopupBox.ToggleCheckedContent>
-                        <materialDesign:PackIcon Width="24" Height="24" Kind="Close" Foreground="#fafafa" />
-                    </materialDesign:PopupBox.ToggleCheckedContent>
-                    <StackPanel Margin="16">
-                        <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}" 
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Width="24" Height="24" Kind="DotsHorizontal" Foreground="#fafafa" />
+                        </materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PopupBox.ToggleCheckedContent>
+                            <materialDesign:PackIcon Width="24" Height="24" Kind="Close" Foreground="#fafafa" />
+                        </materialDesign:PopupBox.ToggleCheckedContent>
+                        <StackPanel Margin="16">
+                            <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}" 
                                 ToolTip="Settings" Name="Setting"
                                 Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Settings"
                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                        <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="0,10,0,0"
+                            <Button Width="110" IsEnabled="True" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="0,10,0,0"
                                 ToolTip="Filter" Name="Filter"
                                 Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Filter"
                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                    </StackPanel>
-                </materialDesign:PopupBox>
-                <view:ErrorModal />
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </Grid>
+                <view:ErrorModal Grid.Row="0"/>
             </Grid>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>

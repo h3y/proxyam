@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
+using proxyam.Model;
 using proxyam.View;
 
 namespace proxyam.ViewModel
 {
-    public class DialogViewModel
+    public class DialogViewModel : ObservableObject
     {
         public MainViewModel MainPage { get; }
         public ICommand RunExtendedDialogCommand => new RelayCommand<Button>(ExecuteRunExtendedDialog);
@@ -25,29 +28,32 @@ namespace proxyam.ViewModel
 
         private async void ExecuteRunExtendedDialog(Button button)
         {
-
-            
             switch (button.Name)
             {
                 case "Setting":
-                    _template = MainPage.SettingPage; break;
+                    _template = MainPage.SettingPage;
+                    break;
                 case "Filter":
-                    _template = MainPage.FilterPage; break;
+                    _template = MainPage.FilterPage;
+                    break;
             }
+
             //show the dialog
-            var result = await DialogHost.Show(_template, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
+            var result = await DialogHost.Show(_template, "RootDialog", ExtendedOpenedEventHandler,
+                ExtendedClosingEventHandler);
 
             //check the result...
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
         }
+
         private void ExtendedOpenedEventHandler(object sender, DialogOpenedEventArgs eventargs)
         {
             Console.WriteLine("You could intercept the open and affect the dialog using eventArgs.Session.");
         }
 
-        private void ExtendedClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        private async void ExtendedClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
-            if ((bool)eventArgs.Parameter == false) return;
+            if ((bool) eventArgs.Parameter == false) return;
 
             //OK, lets cancel the close...
             eventArgs.Cancel();
@@ -56,10 +62,67 @@ namespace proxyam.ViewModel
             eventArgs.Session.UpdateContent(new SplashScreen());
             //note, you can also grab the session when the dialog opens via the DialogOpenedEventHandler
 
-            //lets run a fake operation for 3 seconds then close this baby.
-            Task.Delay(TimeSpan.FromSeconds(3))
-                .ContinueWith((t, _) => eventArgs.Session.Close(false), null,
-                    TaskScheduler.FromCurrentSynchronizationContext());
+            switch (_template)
+            {
+                case FilterViewModel _:
+                    await ExecuteFilter();
+                    break;
+                case SettingViewModel _:
+                    break;
+            }
+
+            eventArgs.Session.Close(false);
+        }
+
+        public async Task ExecuteFilter()
+        {
+            if (MainPage.FilterPage.FilterModel.Country.Count == 0)
+                return;
+            await Task.Run(() =>
+            {
+                //filter by country
+                var tmpProxies = new List<Proxy>();
+                var filterModel = MainPage.FilterPage.FilterModel;
+
+                foreach (var country in filterModel.Country.AsParallel())
+                {
+                    if (!country.Value.IsChecked) continue;
+                    tmpProxies.AddRange(MainPage.ProxySwitcherPage.ProxyDataModel.Proxies
+                        .Where(a => a.Country == country.Key).AsParallel());
+                }
+
+                tmpProxies = tmpProxies.AsParallel().Where(a =>
+                    a.Speed >= filterModel.MinSpeed
+                    && a.Speed <= filterModel.MaxSpeed
+                    && a.Uptime >= filterModel.MinUptime
+                    && a.Uptime <= filterModel.MaxUptime
+                ).ToList();
+
+                tmpProxies = tmpProxies.AsParallel().Where(a =>
+                    a.Speed >= filterModel.MinSpeed
+                    && a.Speed <= filterModel.MaxSpeed
+                    && a.Uptime >= filterModel.MinUptime
+                    && a.Uptime <= filterModel.MaxUptime
+                ).ToList();
+
+                var proxyWithCity = new List<Proxy>();
+                foreach (var city in filterModel.City.Split(';').ToArray())
+                {
+                    proxyWithCity.AddRange(
+                        tmpProxies
+                            .AsParallel()
+                            .Where(a => a.City.ToLower().Trim() == city.ToLower().Trim())
+                            .ToList()
+                            .AsParallel()
+                    );
+                }
+
+                MainPage.ProxySwitcherPage.CachedProxyDataModel =
+                    new ProxyModel
+                    {
+                        Proxies = new ObservableCollection<Proxy>(proxyWithCity)
+                    };
+            });
         }
     }
 }

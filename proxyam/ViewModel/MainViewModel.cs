@@ -25,7 +25,7 @@ namespace proxyam.ViewModel
         private ViewModelBase _currentPage;
         public LoginViewModel LoginPage { get; }
         public ErrorModalViewModel ErrorModalPage { get; }
-        public ProxySwitcherViewModel MainPage { get; }
+        public ProxySwitcherViewModel ProxySwitcherPage { get; }
         public FilterViewModel FilterPage { get; }
         public DialogViewModel DialogPage { get; }
         public SplashScreenViewModel SplashScreenPage { get; }
@@ -35,7 +35,7 @@ namespace proxyam.ViewModel
 
         public MainViewModel()
         {
-            MainPage = new ProxySwitcherViewModel(this);
+            ProxySwitcherPage = new ProxySwitcherViewModel(this);
             FilterPage = new FilterViewModel(this);
             SplashScreenPage = new SplashScreenViewModel();
             ErrorModalPage = new ErrorModalViewModel(this);
@@ -54,9 +54,9 @@ namespace proxyam.ViewModel
 
         public async Task SetHomePage()
         {
-            await MainPage.LoadProxy();
-            await MainPage.MainPage.FilterPage.InitFilter();
-            CurrentPage = MainPage;
+            await ProxySwitcherPage.LoadProxy();
+            await ProxySwitcherPage.MainPage.FilterPage.InitFilter();
+            CurrentPage = ProxySwitcherPage;
         }
 
         public string GetLanguageMessage(string key)

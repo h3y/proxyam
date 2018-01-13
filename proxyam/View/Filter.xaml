@@ -8,9 +8,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:converter="clr-namespace:proxyam.Converter"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" FontFamily="Roboto Light" FontSize="16"
              d:DataContext="{d:DesignInstance Type=viewModel:FilterViewModel, IsDesignTimeCreatable=False}"
-             d:DesignHeight="500" d:DesignWidth="910">
+             d:DesignHeight="600" d:DesignWidth="910">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,40 +20,104 @@
             <converter:DictToString x:Key="DictToString" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Height="500" Width="910">
+    <Grid Width="910">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <Border Padding="30,30,0,0">
+            <Border Padding="15,15,0,0">
                 <StackPanel>
                     <WrapPanel>
-                        <materialDesign:PackIcon Foreground="#2196F3" Kind="Earth" Height="28" Width="28"/>
-                        <TextBlock Text="COUNTRYS" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16" FontFamily="Roboto Light"/>
+                        <materialDesign:PackIcon Foreground="#2196F3" Kind="Earth" Height="28" Width="28" />
+                        <TextBlock Text="COUNTRYS" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                                   FontFamily="Roboto Light" />
                     </WrapPanel>
-                    <ScrollViewer CanContentScroll="True" Height="280" Margin="0,10,0,0">
-                        <ItemsControl ItemsSource="{Binding Path=MainPage.FilterPage.FilterModel.Country}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ScrollViewer CanContentScroll="True" MaxHeight="200" Margin="0,10,0,0">
+                        <ItemsControl ItemsSource="{Binding Path=FilterModel.Country}"
+                                      HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="True" Content="{Binding Converter={StaticResource DictToString}}"/>
+                                    <CheckBox IsChecked="{Binding Path=Value.IsChecked}" Content="{Binding Converter={StaticResource DictToString}}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel ItemWidth="100" ItemHeight="20"  />
+                                    <WrapPanel ItemWidth="100" ItemHeight="20" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                     </ScrollViewer>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Border Padding="10,10,15,10">
+                            <Button Content="Select All" IsDefault="True" />
+                        </Border>
+                        <Border Padding="10,10,15,10">
+                            <Button Content="Clear" IsDefault="True" />
+                        </Border>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </StackPanel>
-        <StackPanel Grid.Row="1" >
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                <materialDesign:PackIcon Foreground="#2196F3" Kind="Speedometer" Height="28" Width="28" />
+                <TextBlock Text="SPEED" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                           FontFamily="Roboto Light" />
+            </StackPanel>
+            <Grid Margin="15,0,15,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <controls:RangeSlider IsMoveToPointEnabled="True" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" MinRangeWidth="0"
+                                      Maximum="{Binding Path=FilterModel.CurrentMaxSpeed, Mode=OneWay}" 
+                                      Minimum="{Binding Path=FilterModel.CurrentMinSpeed, Mode=OneWay}"
+                                      UpperValue="{Binding Path=FilterModel.MaxSpeed, Mode=TwoWay}"
+                                      LowerValue="{Binding Path=FilterModel.MinSpeed, Mode=TwoWay}"
+                                      Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" />
+            </Grid>
         </StackPanel>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+        <StackPanel Grid.Row="2">
+            <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                <materialDesign:PackIcon Foreground="#2196F3" Kind="CameraTimer" Height="28" Width="28" />
+                <TextBlock Text="UPTIME" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                           FontFamily="Roboto Light" />
+            </StackPanel>
+            <Grid Margin="15,0,15,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <controls:RangeSlider IsMoveToPointEnabled="True" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" MinRangeWidth="0"
+                                      Maximum="{Binding Path=FilterModel.CurrentMaxUptime, Mode=OneWay}" 
+                                      Minimum="{Binding Path=FilterModel.CurrentMinUptime, Mode=OneWay}"
+                                      UpperValue="{Binding Path=FilterModel.MaxUptime, Mode=TwoWay}"
+                                      LowerValue="{Binding Path=FilterModel.MinUptime, Mode=TwoWay}"
+                                      Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" />
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                <materialDesign:PackIcon Foreground="#2196F3" Kind="City" Height="28" Width="28" />
+                <TextBlock Text="CITYs (kiev;moskow)" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                           FontFamily="Roboto Light" />
+            </StackPanel>
+            <Grid Margin="15,0,15,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Margin="0,0,20,0" HorizontalAlignment="Stretch" Text="{Binding Path=FilterModel.City, Mode=TwoWay}"></TextBox>
+                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" />
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>

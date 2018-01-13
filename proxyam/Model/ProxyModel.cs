@@ -12,12 +12,16 @@ namespace proxyam.Model
     public class ProxyModel
     {
         [JsonProperty("data")]
-        public ObservableCollection<Proxy> Proxies { get; set; }
+        public ObservableCollection<Proxy> Proxies { get; set; } = new ObservableCollection<Proxy>();
     }
 
     [JsonObject(MemberSerialization.OptOut)]
     public class Proxy : ObservableObject
     {
+        public Proxy()
+        {
+        }
+
         public Proxy(ProxyStatus status, string proxies, string ip, string country, string city, double speed, double uptime)
         {
             _status = status;

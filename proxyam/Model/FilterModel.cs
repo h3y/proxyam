@@ -8,16 +8,24 @@ using System.Threading.Tasks;
 
 namespace proxyam.Model
 {
-    public class FilterModel: ObservableObject, IDisposable
+    public class FilterModel : ObservableObject, IDisposable
     {
-        private Dictionary<string,int> _country = new Dictionary<string, int>();
+        public class CountryCount
+        {
+            public bool IsChecked { get; set; }
+            public int Count { get; set; }
+        }
+
+        private Dictionary<string, CountryCount> _country = new Dictionary<string, CountryCount>();
+
         private double _minSpeed;
         private double _maxSpeed;
         private double _minUptime;
         private double _maxUptime;
-        private List<string> _city = new List<string>();
 
-        public Dictionary<string, int> Country
+        private string _city = "";
+
+        public Dictionary<string, CountryCount> Country
         {
             get => _country;
             set => Set(() => Country, ref _country, value);
@@ -47,7 +55,7 @@ namespace proxyam.Model
             set => Set(() => MaxUptime, ref _maxUptime, value);
         }
 
-        public List<string> City
+        public string City
         {
             get => _city;
             set => Set(() => City, ref _city, value);
@@ -60,7 +68,37 @@ namespace proxyam.Model
             MaxSpeed = 0;
             MinUptime = 0;
             MaxUptime = 0;
-            City.Clear();
+            City = "";
+        }
+
+
+        private double _currentMinSpeed;
+        private double _currentMaxSpeed;
+        private double _currentMinUptime;
+        private double _currentMaxUptime;
+
+        public double CurrentMinSpeed
+        {
+            get => _currentMinSpeed;
+            set => Set(() => CurrentMinSpeed, ref _currentMinSpeed, value);
+        }
+
+        public double CurrentMaxSpeed
+        {
+            get => _currentMaxSpeed;
+            set => Set(() => CurrentMaxSpeed, ref _currentMaxSpeed, value);
+        }
+
+        public double CurrentMinUptime
+        {
+            get => _currentMinUptime;
+            set => Set(() => CurrentMinUptime, ref _currentMinUptime, value);
+        }
+
+        public double CurrentMaxUptime
+        {
+            get => _currentMaxUptime;
+            set => Set(() => CurrentMaxUptime, ref _currentMaxUptime, value);
         }
     }
 }

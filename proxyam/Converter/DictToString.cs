@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using proxyam.Model;
 
 namespace proxyam.Converter
 {
@@ -12,8 +13,8 @@ namespace proxyam.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var keyValue = (KeyValuePair<string, int>)value;
-            return keyValue.Key + "[" + keyValue.Value.ToString() + "]";
+            var keyValue = (KeyValuePair<string, FilterModel.CountryCount>)value;
+            return keyValue.Key + "[" + keyValue.Value.Count.ToString() + "]";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -16,10 +16,11 @@
             <converter:CountryConverter x:Key="CountryConverter" />
             <converter:CompareSizeConverter x:Key="CompareSizeConverter" />
             <DataTemplate x:Key="LargeGrid">
-                <DataGrid CanUserSortColumns="True"
-                          ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
+                <DataGrid CanUserSortColumns="True" Name="DataGrid" Background="Transparent"
+                          ItemsSource="{Binding Path=CachedProxyDataModel.Proxies}"
                           CanUserAddRows="False" AutoGenerateColumns="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Visible"
                           materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                           materialDesign:DataGridAssist.ColumnHeaderPadding="8"
                           IsReadOnly="True" SelectionMode="Single"
@@ -83,7 +84,7 @@
                         </DataGridTemplateColumn>
 
                         <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=City}" Header="city"
-                                                                   Width="140*" />
+                                                                   Width="95*" />
                         <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Speed, StringFormat=0 Kbs}"
                                                                    Header="speed" Width="95*" />
                         <materialDesign:MaterialDataGridTextColumn
@@ -94,8 +95,8 @@
                 </DataGrid>
             </DataTemplate>
             <DataTemplate x:Key="MiniGrid">
-                <DataGrid CanUserSortColumns="True"
-                          ItemsSource="{Binding Path=ProxyDataModel.Proxies}"
+                <DataGrid CanUserSortColumns="True"  Background="Transparent"
+                          ItemsSource="{Binding Path=CachedProxyDataModel.Proxies}"
                           CanUserAddRows="False" AutoGenerateColumns="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           materialDesign:DataGridAssist.CellPadding="13 8 8 8"
@@ -167,7 +168,8 @@
                     <Setter Property="ContentTemplate" Value="{StaticResource LargeGrid}" />
                     <Style.Triggers>
                         <DataTrigger
-                            Binding="{Binding ActualWidth,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource CompareSizeConverter}}"
+                            Binding="{Binding ActualWidth,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, 
+                            Converter={StaticResource CompareSizeConverter}}"
                             Value="true">
                             <Setter Property="ContentTemplate" Value="{StaticResource MiniGrid}" />
                         </DataTrigger>

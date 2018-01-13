@@ -29,13 +29,24 @@ namespace proxyam.ViewModel
         {
             await Task.Run(() =>
             {
-                FilterModel.Country = MainPage.MainPage.ProxyDataModel.Proxies.GroupBy(a => a.Country).ToDictionary(gdc => gdc.Key, gdc => gdc.Count());
-                FilterModel.MaxSpeed = MainPage.MainPage.ProxyDataModel.Proxies.Max(a => a.Speed);
-                FilterModel.MinSpeed = MainPage.MainPage.ProxyDataModel.Proxies.Min(a => a.Speed);
-                FilterModel.MaxUptime = MainPage.MainPage.ProxyDataModel.Proxies.Max(a => a.Uptime);
-                FilterModel.MinUptime = MainPage.MainPage.ProxyDataModel.Proxies.Min(a => a.Uptime);
+                FilterModel.Country = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies
+                    .GroupBy(a => a.Country).ToDictionary(
+                        gdc => gdc.Key,
+                        gdc => new FilterModel.CountryCount
+                        {
+                            Count = gdc.Count(),
+                            IsChecked = true
+                        });
+
+                FilterModel.MaxSpeed = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Max(a => a.Speed);
+                FilterModel.MinSpeed = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Min(a => a.Speed);
+                FilterModel.MaxUptime = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Max(a => a.Uptime);
+                FilterModel.MinUptime = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Min(a => a.Uptime);
+                FilterModel.CurrentMaxSpeed = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Max(a => a.Speed);
+                FilterModel.CurrentMinSpeed = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Min(a => a.Speed);
+                FilterModel.CurrentMaxUptime = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Max(a => a.Uptime);
+                FilterModel.CurrentMinUptime = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Min(a => a.Uptime);
             });
-            RaisePropertyChanged(()=> FilterModel.Country);
         }
     }
 }
