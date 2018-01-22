@@ -31,6 +31,7 @@ namespace proxyam.ViewModel
         public SplashScreenViewModel SplashScreenPage { get; }
         public SettingViewModel SettingPage { get; }
         public HttpUtil HttpUtil { get; }
+        public ProxyChecker ProxyChecker { get; }
 
 
         public MainViewModel()
@@ -43,6 +44,7 @@ namespace proxyam.ViewModel
             SettingPage = new SettingViewModel(this);
             HttpUtil = new HttpUtil(this);
             LoginPage = new LoginViewModel(this);
+            ProxyChecker = new ProxyChecker(this);
             CurrentPage = LoginPage;
         }
 

@@ -23,7 +23,10 @@
                           VerticalScrollBarVisibility="Visible"
                           materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                           materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                          IsReadOnly="True" SelectionMode="Single"
+                          IsReadOnly="True" SelectionMode="Single" 
+                          VirtualizingStackPanel.VirtualizationMode ="Recycling" 
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.ScrollUnit="Pixel"
                           FontFamily="Roboto" FontSize="14" FontWeight="SemiBold">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="40*">
@@ -32,23 +35,23 @@
                                     <materialDesign:PackIcon Height="18" Width="18" Kind="HelpCircleOutline"
                                                              x:Name="status" HorizontalAlignment="Center" />
                                     <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="question">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Unknown">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="HelpCircleOutline" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="link">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Connected">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="LinkVariant" />
                                             <Setter TargetName="status" Property="Foreground"
                                                     Value="#2196F3" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="error">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Bad">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="CloseCircleOutline" />
                                             <Setter TargetName="status" Property="Foreground"
                                                     Value="#F44336" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="success">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Successful">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="Check" />
                                             <Setter TargetName="status" Property="Foreground"
@@ -96,6 +99,9 @@
             </DataTemplate>
             <DataTemplate x:Key="MiniGrid">
                 <DataGrid CanUserSortColumns="True"  Background="Transparent"
+                          VirtualizingStackPanel.VirtualizationMode ="Recycling" 
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.ScrollUnit="Pixel"
                           ItemsSource="{Binding Path=CachedProxyDataModel.Proxies}"
                           CanUserAddRows="False" AutoGenerateColumns="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -109,23 +115,23 @@
                                 <DataTemplate>
                                     <materialDesign:PackIcon Height="18" Width="18" Kind="HelpCircleOutline" x:Name="status" HorizontalAlignment="Center" />
                                     <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="question">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Unknown">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="HelpCircleOutline" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="link">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Connected">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="LinkVariant" />
                                             <Setter TargetName="status" Property="Foreground"
                                                     Value="#2196F3" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="error">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Bad">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="CloseCircleOutline" />
                                             <Setter TargetName="status" Property="Foreground"
                                                     Value="#F44336" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Status}" Value="success">
+                                        <DataTrigger Binding="{Binding Path=Status}" Value="Successful">
                                             <Setter TargetName="status" Property="Kind"
                                                     Value="Check" />
                                             <Setter TargetName="status" Property="Foreground"

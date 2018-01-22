@@ -1,36 +1,146 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using proxyam.Model;
+using RestSharp;
 
 namespace proxyam.ViewModel
 {
-    class ProxyChecker
+    public class ProxyChecker : ObservableObject
     {
-        //var tasks = new Task[threads];
-        //var rnd = new Random(DateTime.UtcNow.Millisecond);
-        //    while (threads > 0)
-        //{
-        //    var curIter = iterationsCount / threads;
-        //    iterationsCount -= curIter;
+        public readonly MainViewModel MainPage;
+        public Task CheckingTask;
+        private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
+        public List<Thread> ThreadPool { get; private set; }
+        public ICommand CheckProxyCommand { get; private set; }
+        private readonly object _threadLocker = new object();
 
-        //    tasks[--threads] = Task.Run(() =>
-        //    {
-        //        var sw = new Stopwatch();
-        //        while (curIter-- > 0)
-        //        {
-        //            var dt = DateTime.UtcNow;
-        //            sw.Start();
-        //            var res = rpsPool.CanExecute();
-        //            sw.Stop();
-        //            Print($"{dt.ToString("T"),8}.{dt.Millisecond,-3} - {res,-5} | Elapsed {sw.ElapsedTicks} ticks");
-        //            if (minRnd <= maxRnd && maxRnd > 0)
-        //                Thread.Sleep(rnd.Next(minRnd, maxRnd + 1));
-        //            sw.Reset();
-        //        }
-        //    });
-        //}
-        //Task.WaitAll(tasks);
+        private int _goodProxyCount;
+        private int _badProxyCount;
+        private int _currentProxyIndex;
+
+        public int GoodProxyCount
+        {
+            get => _goodProxyCount;
+            set => Set(() => GoodProxyCount, ref _goodProxyCount, value);
+        }
+
+        public int BadProxyCount
+        {
+            get => _badProxyCount;
+            set => Set(() => BadProxyCount, ref _badProxyCount, value);
+        }
+
+        public ProxyChecker(MainViewModel mainPage)
+        {
+            MainPage = mainPage;
+            CheckProxyCommand = new RelayCommand<object>(ExecuteProxyCommand);
+            ThreadPool = new List<Thread>();
+        }
+
+        private void CheckProxy(Proxy data)
+        {
+            if (data.Status == Proxy.ProxyStatus.Successful || data.Status == Proxy.ProxyStatus.Connected)
+            {
+                lock (_threadLocker)
+                {
+                    GoodProxyCount++;
+                }
+
+                return;
+            }
+
+            var client = new RestClient("http://api.proxy.am");
+            var proxy = data.Proxies.Split(':');
+            client.Proxy = new WebProxy(proxy[0], int.Parse(proxy[1]));
+            client.FollowRedirects = false;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Connection", "close");
+            IRestResponse response = client.Execute(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                lock (_threadLocker)
+                {
+                    GoodProxyCount++;
+                    data.Status = Proxy.ProxyStatus.Successful;
+                }
+            }
+            else
+            {
+                lock (_threadLocker)
+                {
+                    BadProxyCount++;
+                    data.Status = Proxy.ProxyStatus.Bad;
+                }
+            }
+        }
+
+        private void AsyncCheckingProxys()
+        {
+            var obj = _threadLocker;
+            int countProxies = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count;
+            while (!_cancelTokenSource.Token.IsCancellationRequested)
+            {
+                Proxy proxy;
+                lock (obj)
+                {
+                    if (_currentProxyIndex >= countProxies)
+                    {
+                        _cancelTokenSource.Cancel();
+                        return;
+                    }
+
+                    proxy = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies[_currentProxyIndex++];
+                }
+
+                CheckProxy(proxy);
+            }
+        }
+
+        private async void ExecuteProxyCommand(object button)
+        {
+            if(!(button as Button).IsEnabled || MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count == 0)
+                return;
+
+            (button as Button).Content = "Wait!";
+            (button as Button).IsEnabled = false;
+
+            ThreadPool.Clear();
+            _currentProxyIndex = 0;
+            GoodProxyCount = 0;
+            BadProxyCount = 0;
+
+            for (int i = 0; i < 100; i++)
+            {
+                if (i >= MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count)
+                    return;
+                ThreadPool.Add(new Thread(AsyncCheckingProxys));
+                ThreadPool[i].IsBackground = true;
+                ThreadPool[i].Start();
+            }
+
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                    if(!_cancelTokenSource.Token.IsCancellationRequested)
+                        break;
+                }
+
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    (button as Button).Content = "CheckProxy";
+                    (button as Button).IsEnabled = true;
+                });
+            });
+           
+
+        }
     }
 }
