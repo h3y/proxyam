@@ -24,7 +24,7 @@ namespace proxyam.ViewModel
             get => _filterModel;
             set => Set(() => FilterModel, ref _filterModel, value);
         }
-
+      
         public async Task InitFilter()
         {
             await Task.Run(() =>

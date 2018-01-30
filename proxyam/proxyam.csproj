@@ -109,11 +109,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\BoolToVisibility.cs" />
     <Compile Include="Converter\CompareSizeConverter.cs" />
     <Compile Include="Converter\CountryConverter.cs" />
     <Compile Include="Converter\DictToString.cs" />
+    <Compile Include="Converter\NullBooleanConverter.cs" />
     <Compile Include="Helper\HttpUtil.cs" />
     <Compile Include="Model\FilterModel.cs" />
+    <Compile Include="ViewModel\ConnectedProxyViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\ErrorModalViewModel.cs" />
     <Compile Include="ViewModel\FilterViewModel.cs" />
@@ -133,8 +136,8 @@
     <Compile Include="View\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\HeaderStatus.xaml.cs">
-      <DependentUpon>HeaderStatus.xaml</DependentUpon>
+    <Compile Include="View\ConnectedProxy.xaml.cs">
+      <DependentUpon>ConnectedProxy.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -184,7 +187,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\HeaderStatus.xaml">
+    <Page Include="View\ConnectedProxy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

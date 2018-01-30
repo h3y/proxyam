@@ -18,9 +18,9 @@ namespace proxyam.View
     /// <summary>
     /// Логика взаимодействия для HeaderStatus.xaml
     /// </summary>
-    public partial class HeaderStatus : UserControl
+    public partial class ConnectedProxy : UserControl
     {
-        public HeaderStatus()
+        public ConnectedProxy()
         {
             InitializeComponent();
         }

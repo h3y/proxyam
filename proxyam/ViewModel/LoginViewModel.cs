@@ -13,6 +13,7 @@ namespace proxyam.ViewModel
     public sealed class LoginViewModel : ViewModelBase
     {
         private string _apiKey;
+        private bool _isLogOn;
         public ICommand LogInCommand { get; }
         public MainViewModel MainPage { get; }
 
@@ -31,6 +32,12 @@ namespace proxyam.ViewModel
         {
             get => _apiKey;
             set => Set(() => ApiKey, ref _apiKey, value);
+        }
+
+        public bool IsLogOn
+        {
+            get => _isLogOn;
+            set => Set(() => IsLogOn, ref _isLogOn, value);
         }
 
         private async void LogInMehod()
@@ -66,6 +73,7 @@ namespace proxyam.ViewModel
                                 Properties.Settings.Default.apiKey = ApiKey;
                                 Properties.Settings.Default.Save();
                                 await MainPage.SetHomePage();
+                                IsLogOn = true;
                                 break;
                             case "err":
                                 MainPage.HttpUtil.MainPage.HttpUtil.ShowErrorWindow("LoginErrorTariff");

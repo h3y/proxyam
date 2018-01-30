@@ -27,7 +27,14 @@
                           VirtualizingStackPanel.VirtualizationMode ="Recycling" 
                           VirtualizingStackPanel.IsVirtualizing="True"
                           VirtualizingStackPanel.ScrollUnit="Pixel"
-                          FontFamily="Roboto" FontSize="14" FontWeight="SemiBold">
+                          FontFamily="Roboto" FontSize="14" FontWeight="SemiBold" 
+                          IsSynchronizedWithCurrentItem="True">
+                    <DataGrid.InputBindings>
+                        <MouseBinding
+                            MouseAction="LeftDoubleClick"
+                            Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
+                            CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="40*">
                             <DataGridTemplateColumn.CellTemplate>
@@ -98,17 +105,25 @@
                 </DataGrid>
             </DataTemplate>
             <DataTemplate x:Key="MiniGrid">
-                <DataGrid CanUserSortColumns="True"  Background="Transparent"
-                          VirtualizingStackPanel.VirtualizationMode ="Recycling" 
-                          VirtualizingStackPanel.IsVirtualizing="True"
-                          VirtualizingStackPanel.ScrollUnit="Pixel"
+                <DataGrid CanUserSortColumns="True" Name="DataGrid" Background="Transparent"
                           ItemsSource="{Binding Path=CachedProxyDataModel.Proxies}"
                           CanUserAddRows="False" AutoGenerateColumns="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Visible"
                           materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                           materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                          IsReadOnly="True" SelectionMode="Single"
-                          FontFamily="Roboto" FontSize="14" FontWeight="SemiBold">
+                          IsReadOnly="True" SelectionMode="Single" 
+                          VirtualizingStackPanel.VirtualizationMode ="Recycling" 
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.ScrollUnit="Pixel"
+                          FontFamily="Roboto" FontSize="14" FontWeight="SemiBold" 
+                          IsSynchronizedWithCurrentItem="True">
+                    <DataGrid.InputBindings>
+                        <MouseBinding
+                            MouseAction="LeftDoubleClick"
+                            Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
+                            CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="40*">
                             <DataGridTemplateColumn.CellTemplate>

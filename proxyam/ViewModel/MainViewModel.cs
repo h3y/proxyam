@@ -32,7 +32,7 @@ namespace proxyam.ViewModel
         public SettingViewModel SettingPage { get; }
         public HttpUtil HttpUtil { get; }
         public ProxyChecker ProxyChecker { get; }
-
+        public ConnectedProxyViewModel ConnectedProxyPage { get; }
 
         public MainViewModel()
         {
@@ -45,6 +45,7 @@ namespace proxyam.ViewModel
             HttpUtil = new HttpUtil(this);
             LoginPage = new LoginViewModel(this);
             ProxyChecker = new ProxyChecker(this);
+            ConnectedProxyPage = new ConnectedProxyViewModel(this);
             CurrentPage = LoginPage;
         }
 
@@ -52,7 +53,7 @@ namespace proxyam.ViewModel
         {
             get => _currentPage;
             set => Set(() => CurrentPage, ref _currentPage, value);
-        } 
+        }
 
         public async Task SetHomePage()
         {

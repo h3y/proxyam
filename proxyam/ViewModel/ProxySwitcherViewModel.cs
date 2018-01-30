@@ -1,7 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
 using proxyam.Model;
 
@@ -9,28 +13,25 @@ namespace proxyam.ViewModel
 {
     public class ProxySwitcherViewModel : ViewModelBase
     {
-        public MainViewModel MainPage;
+
+        public MainViewModel MainPage { get; }
         private ProxyModel _proxyDataModel;
         private ProxyModel _cachedProxyDataModel;
-        private Proxy _activeProxy;
+
 
         public ProxySwitcherViewModel(MainViewModel mainPage)
         {
             MainPage = mainPage;
             _proxyDataModel = new ProxyModel();
             _cachedProxyDataModel = new ProxyModel();
+           
         }
 
+       
         public ProxyModel ProxyDataModel
         {
             get => _proxyDataModel;
             set => Set(() => ProxyDataModel, ref _proxyDataModel, value);
-        }
-
-        public Proxy ActiveProxy
-        {
-            get => _activeProxy;
-            set => Set(() => ActiveProxy, ref _activeProxy, value);
         }
 
         public ProxyModel CachedProxyDataModel

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="proxyam.View.ConnectedProxy"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:proxyam.ViewModel"
+             xmlns:converter="clr-namespace:proxyam.Converter"
+             mc:Ignorable="d" d:DesignHeight="60"
+             d:DataContext="{d:DesignInstance Type=viewModel:ConnectedProxyViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Snackbar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:NullBooleanConverter x:Key="NullBooleanConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <materialDesign:Snackbar IsActive="{Binding Path=ActiveProxy, Converter={StaticResource NullBooleanConverter}}"
+                             Foreground="#AFEA00" FontSize="16"
+                             FontWeight="SemiBold" FontFamily="Regular" BorderThickness="0"
+                             ActionButtonStyle="{DynamicResource MaterialDesignSnackbarActionButton}">
+        <materialDesign:SnackbarMessage ActionContent="DISCONNECT" ActionCommand="{Binding Path=ConnectToProxyCommand}"
+                                        ActionCommandParameter="{Binding Path=ActiveProxy}">
+            <materialDesign:SnackbarMessage.Content>
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="CONNECTED" TextAlignment="Left" MinWidth="100" />
+                        <TextBlock Text="{Binding Path=ActiveProxy.Ip}" TextAlignment="Right" MinWidth="110" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="ONLINE" FontSize="10" MinWidth="40" RenderTransformOrigin="0.5,0.5">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform Y="16" />
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock
+                            Text="{Binding Path=ConnecterProxyOnline, StringFormat={}{0:hh\\:mm\\:ss}, FallbackValue=00:00:00}"
+                            FontSize="10">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform Y="16" />
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:SnackbarMessage.Content>
+        </materialDesign:SnackbarMessage>
+    </materialDesign:Snackbar>
+</UserControl>

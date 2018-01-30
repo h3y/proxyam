@@ -8,14 +8,15 @@
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
              xmlns:view="clr-namespace:proxyam.View"
              mc:Ignorable="d"
-             d:DesignHeight="150" d:DesignWidth="300" d:DataContext="{d:DesignInstance Type=viewModel:LoginViewModel, IsDesignTimeCreatable=False}" >
+             d:DesignHeight="150" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=viewModel:LoginViewModel}">
     <Grid>
         <!--<Grid Background="Black" Opacity="0.4" />-->
         <materialDesign:Card Background="White" HorizontalAlignment="Center" VerticalAlignment="Center"
-                             Padding="28,28,28,15" materialDesign:ShadowAssist.ShadowDepth="Depth3" Visibility="{Binding Path=MainPage.SplashScreenPage.ShowContent}"
-                            >
+                             Padding="28,28,28,15" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                             Visibility="{Binding Path=MainPage.SplashScreenPage.ShowContent}">
             <Grid>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="2*" />
@@ -37,6 +38,6 @@
                         Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
             </Grid>
         </materialDesign:Card>
-        <view:SplashScreen Visibility="{Binding Path=MainPage.SplashScreenPage.ShowSplash}"/>
+        <view:SplashScreen Visibility="{Binding Path=MainPage.SplashScreenPage.ShowSplash}" />
     </Grid>
 </UserControl>

@@ -73,7 +73,7 @@ namespace proxyam.ViewModel
 
             eventArgs.Session.Close(false);
         }
-
+        //TODO in future to FilterViewModel
         public async Task ExecuteFilter()
         {
             if (MainPage.FilterPage.FilterModel.Country.Count == 0)
@@ -106,15 +106,23 @@ namespace proxyam.ViewModel
                 ).ToList();
 
                 var proxyWithCity = new List<Proxy>();
-                foreach (var city in filterModel.City.Split(';').ToArray())
+
+                if (string.IsNullOrWhiteSpace(filterModel.City))
                 {
-                    proxyWithCity.AddRange(
-                        tmpProxies
-                            .AsParallel()
-                            .Where(a => a.City.ToLower().Trim() == city.ToLower().Trim())
-                            .ToList()
-                            .AsParallel()
-                    );
+                    proxyWithCity.AddRange(tmpProxies);
+                }
+                else
+                {
+                    foreach (var city in filterModel.City.Split(';').ToArray())
+                    {
+                        proxyWithCity.AddRange(
+                            tmpProxies
+                                .AsParallel()
+                                .Where(a => a.City.ToLower().Trim() == city.ToLower().Trim())
+                                .ToList()
+                                .AsParallel()
+                        );
+                    }
                 }
 
                 MainPage.ProxySwitcherPage.CachedProxyDataModel =

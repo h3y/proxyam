@@ -126,11 +126,9 @@ namespace proxyam.ViewModel
 
             await Task.Run(() =>
             {
-                while (true)
+                while (!_cancelTokenSource.Token.IsCancellationRequested)
                 {
                     Thread.Sleep(1000);
-                    if(!_cancelTokenSource.Token.IsCancellationRequested)
-                        break;
                 }
 
                 App.Current.Dispatcher.Invoke(() =>
