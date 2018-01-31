@@ -10,9 +10,16 @@ namespace proxyam.Model
 {
     public class FilterModel : ObservableObject, IDisposable
     {
-        public class CountryCount
+        public class CountryCount : ObservableObject
         {
-            public bool IsChecked { get; set; }
+            private bool _isChecked;
+
+            public bool IsChecked
+            {
+                get => _isChecked;
+                set => Set(() => IsChecked, ref _isChecked, value);
+            }
+
             public int Count { get; set; }
         }
 

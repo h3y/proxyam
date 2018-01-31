@@ -53,10 +53,10 @@
                     </ScrollViewer>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Border Padding="10,10,15,10">
-                            <Button Content="Select All" IsDefault="True" />
+                            <Button Content="Select All" IsDefault="True"  Command="{Binding Path=SelectAllProxyCommand}"/>
                         </Border>
                         <Border Padding="10,10,15,10">
-                            <Button Content="Clear" IsDefault="True" />
+                            <Button Content="Clear" IsDefault="True" Command="{Binding Path=UnSelectAllProxyCommand}" />
                         </Border>
                     </StackPanel>
                 </StackPanel>
@@ -79,7 +79,7 @@
                                       UpperValue="{Binding Path=FilterModel.MaxSpeed, Mode=TwoWay}"
                                       LowerValue="{Binding Path=FilterModel.MinSpeed, Mode=TwoWay}"
                                       Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
-                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" />
+                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearSpeedCommand}" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="2">
@@ -99,7 +99,7 @@
                                       UpperValue="{Binding Path=FilterModel.MaxUptime, Mode=TwoWay}"
                                       LowerValue="{Binding Path=FilterModel.MinUptime, Mode=TwoWay}"
                                       Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
-                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" />
+                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearUptimeCommand}"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="3">
@@ -114,7 +114,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Margin="0,0,20,0" HorizontalAlignment="Stretch" Text="{Binding Path=FilterModel.City, Mode=TwoWay}"></TextBox>
-                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" />
+                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearCitysCommand}" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">

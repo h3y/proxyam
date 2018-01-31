@@ -15,7 +15,6 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Window.Resources>
@@ -45,6 +44,10 @@
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>-->
             <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="Resources/background.jpg" TileMode="FlipY" Stretch="Uniform"
+                                AlignmentY="Top" Viewport="0,0,150,150" ViewportUnits="Absolute" Opacity="0.8" />
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -54,10 +57,6 @@
                     <view:Header />
                 </materialDesign:ColorZone>
                 <Grid Grid.Row="1">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="Resources/background.jpg" TileMode="FlipY" Stretch="Uniform"
-                                    AlignmentY="Top" Viewport="0,0,150,150" ViewportUnits="Absolute" Opacity="0.8" />
-                    </Grid.Background>
                     <ContentControl Content="{Binding Path=CurrentPage}" />
                     <materialDesign:PopupBox
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
@@ -88,7 +87,7 @@
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>
-                <view:ErrorModal Grid.Row="0"/>
+                <view:ErrorModal Grid.Row="0" Grid.RowSpan="2"/>
                 <view:ConnectedProxy Grid.Row="1" Width="399" DataContext="{Binding Path=ConnectedProxyPage}"/>
             </Grid>
         </materialDesign:DrawerHost>

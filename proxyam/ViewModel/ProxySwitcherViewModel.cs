@@ -26,7 +26,6 @@ namespace proxyam.ViewModel
             _cachedProxyDataModel = new ProxyModel();
            
         }
-
        
         public ProxyModel ProxyDataModel
         {
@@ -58,7 +57,7 @@ namespace proxyam.ViewModel
                     City = newP.City,
                     Speed = newP.Speed,
                     Uptime = newP.Uptime
-                }).ToList();
+                }).ToList().OrderBy(c=>c.Country);
 
             ProxyDataModel = new ProxyModel {Proxies = new ObservableCollection<Proxy>(data)};
             CachedProxyDataModel.Proxies = new ObservableCollection<Proxy>(ProxyDataModel.Proxies);

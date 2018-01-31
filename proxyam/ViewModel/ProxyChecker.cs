@@ -104,11 +104,13 @@ namespace proxyam.ViewModel
 
         private async void ExecuteProxyCommand(object button)
         {
-            if(!(button as Button).IsEnabled || MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count == 0)
+            var checkProxyButton = ((Button) button);
+
+            if (!checkProxyButton.IsEnabled || MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count == 0)
                 return;
 
-            (button as Button).Content = "Wait!";
-            (button as Button).IsEnabled = false;
+            checkProxyButton.Content = "Wait!";
+            checkProxyButton.IsEnabled = false;
 
             ThreadPool.Clear();
             _currentProxyIndex = 0;
@@ -133,8 +135,8 @@ namespace proxyam.ViewModel
 
                 App.Current.Dispatcher.Invoke(() =>
                 {
-                    (button as Button).Content = "CheckProxy";
-                    (button as Button).IsEnabled = true;
+                    checkProxyButton.Content = "CheckProxy";
+                    checkProxyButton.IsEnabled = true;
                 });
             });
            
