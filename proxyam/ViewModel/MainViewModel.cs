@@ -33,6 +33,7 @@ namespace proxyam.ViewModel
         public HttpUtil HttpUtil { get; }
         public ProxyChecker ProxyChecker { get; }
         public ConnectedProxyViewModel ConnectedProxyPage { get; }
+        public HeaderViewModel HeaderPage { get; }
 
         public MainViewModel()
         {
@@ -46,6 +47,7 @@ namespace proxyam.ViewModel
             LoginPage = new LoginViewModel(this);
             ProxyChecker = new ProxyChecker(this);
             ConnectedProxyPage = new ConnectedProxyViewModel(this);
+            HeaderPage = new HeaderViewModel(this);
             CurrentPage = LoginPage;
         }
 

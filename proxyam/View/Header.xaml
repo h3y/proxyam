@@ -5,9 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:proxyam.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:proxyam.ViewModel"
+             xmlns:model="clr-namespace:proxyam.Model"
+             xmlns:converter="clr-namespace:proxyam.Converter"
              mc:Ignorable="d" FontSize="16"
              FontFamily="Regular" Foreground="White"
-             d:DesignHeight="60" d:DesignWidth="900">
+             d:DesignHeight="60" d:DesignWidth="900" d:DataContext="{d:DesignInstance Type=viewModel:HeaderViewModel}">
+    <UserControl.Resources>
+        <converter:CalculateDaysLeft x:Key="CalculateDaysLeft"></converter:CalculateDaysLeft>
+    </UserControl.Resources>
     <Grid>
         <DockPanel>
             <!--<ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
@@ -23,13 +29,20 @@
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock Text="Ваши прокси" TextAlignment="Center" />
-                            <TextBlock Text="5036" TextAlignment="Center" />
+                            <TextBlock Text="{Binding Path=AccountModel.ProxyCount}" TextAlignment="Center" />
                             <TextBlock Text="===========" TextAlignment="Center" />
                         </StackPanel>
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock Text="Активных потоков" TextAlignment="Center" />
-                            <TextBlock Text="0 / 300" TextAlignment="Center" />
+                            <TextBlock TextAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding Path="AccountModel.ActiveThreads" />
+                                        <Binding Path="AccountModel.Threads" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                             <TextBlock Text="===========" TextAlignment="Center" />
                         </StackPanel>
                     </StackPanel>
@@ -38,13 +51,20 @@
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock Text="Истекает через" TextAlignment="Center" />
-                            <TextBlock Text="18 дней" TextAlignment="Center" />
+                            <TextBlock Text="{Binding Path=AccountModel.End,Converter={StaticResource CalculateDaysLeft}}" TextAlignment="Center" />
                             <TextBlock Text="===========" TextAlignment="Center" />
                         </StackPanel>
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock Text="Рабочие" TextAlignment="Center" />
-                            <TextBlock Text="4000/5036" TextAlignment="Center" />
+                            <TextBlock TextAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding Path="MainViewModel.ProxyChecker.GoodProxyCount" />
+                                        <Binding Path="AccountModel.ProxyCount" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                             <TextBlock Text="===========" TextAlignment="Center" />
                         </StackPanel>
                     </StackPanel>

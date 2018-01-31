@@ -10,7 +10,7 @@
              xmlns:converter="clr-namespace:proxyam.Converter"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" FontFamily="Roboto Light" FontSize="16"
-             d:DataContext="{d:DesignInstance Type=viewModel:FilterViewModel, IsDesignTimeCreatable=False}"
+             d:DataContext="{d:DesignInstance Type=viewModel:FilterViewModel}"
              d:DesignHeight="600" d:DesignWidth="910">
     <UserControl.Resources>
         <ResourceDictionary>

@@ -66,8 +66,9 @@ namespace proxyam.ViewModel
                         System.Diagnostics.Process.Start("https://proxy.am/");
                         break;
                     default:
-                        JsonConvert.DeserializeObject<AccountModel>(response);
-                        switch (AccountModel.Status.ToLower())
+
+                        Singleton.AccountModel.FillData(JsonConvert.DeserializeObject<AccountModel>(response));
+                        switch (Singleton.AccountModel.Status.ToLower())
                         {
                             case "ok":
                                 Properties.Settings.Default.apiKey = ApiKey;
@@ -83,7 +84,7 @@ namespace proxyam.ViewModel
                                 break;
                             default:
                                 MainPage.HttpUtil.ShowErrorWindow("LoginErrorTariff",
-                                    $": {AccountModel.Status.ToLower()}");
+                                    $": {Singleton.AccountModel.Status.ToLower()}");
                                 break;
                         }
                         break;

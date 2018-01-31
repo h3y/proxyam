@@ -41,7 +41,7 @@ namespace proxyam.ViewModel
 
         public async Task LoadProxy()
         {
-            var response = await MainPage.HttpUtil.MakeRequestAsync(AccountModel.Url);
+            var response = await MainPage.HttpUtil.MakeRequestAsync(Singleton.AccountModel.Url);
             ProxyModel proxyModel = JsonConvert.DeserializeObject<ProxyModel>(response);
 
             var data = (from newP in proxyModel.Proxies

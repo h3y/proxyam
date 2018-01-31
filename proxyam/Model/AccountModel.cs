@@ -1,31 +1,86 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 
 namespace proxyam.Model
 {
-    [JsonObject(MemberSerialization.OptOut)]
-    public class AccountModel
+    public static class Singleton
     {
+        private static readonly Lazy<AccountModel> Lazy = new Lazy<AccountModel>(() => new AccountModel());
+
+        public static AccountModel AccountModel
+        {
+            get => Lazy.Value;
+        }
+    }
+
+    [JsonObject(MemberSerialization.OptOut)]
+    public class AccountModel : ObservableObject
+    {
+        private string _tarif;
+        private string _proxyCount;
+        private string _threads;
+        private string _status;
+        private string _end;
+        private string _url;
+        private string _activeThreads = "0";
+
+        public void FillData(AccountModel accountModel)
+        {
+            Tarif = accountModel.Tarif;
+            ProxyCount = accountModel.ProxyCount;
+            Threads = accountModel.Threads;
+            Status = accountModel.Status;
+            End = accountModel.End;
+            Url = accountModel.Url;
+        }
+
         [JsonProperty("tarif")]
-        public static string Tarif { get; set; }
+        public string Tarif
+        {
+            get => _tarif;
+            set => Set(() => Tarif, ref _tarif, value);
+        }
 
         [JsonProperty("all")]
-        public static string ProxyCount { get; set; }
+        public string ProxyCount
+        {
+            get => _proxyCount;
+            set => Set(() => ProxyCount, ref _proxyCount, value);
+        }
 
         [JsonProperty("flows")]
-        public static string Threads { get; set; }
+        public string Threads
+        {
+            get => _threads;
+            set => Set(() => Threads, ref _threads, value);
+        }
 
         [JsonProperty("upd")]
-        public static string Status { get; set; }
+        public string Status
+        {
+            get => _status;
+            set => Set(() => Status, ref _status, value);
+        }
 
         [JsonProperty("end")]
-        public static string End { get; set; }
+        public string End
+        {
+            get => _end;
+            set => Set(() => End, ref _end, value);
+        }
 
         [JsonProperty("url")]
-        public static string Url { get; set; }
+        public string Url
+        {
+            get => _url;
+            set => Set(() => Url, ref _url, value);
+        }
+
+        public string ActiveThreads
+        {
+            get => _activeThreads;
+            set => Set(() => ActiveThreads, ref _activeThreads, value);
+        }
     }
 }

@@ -110,16 +110,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToVisibility.cs" />
+    <Compile Include="Converter\CalculateDaysLeft.cs" />
     <Compile Include="Converter\CompareSizeConverter.cs" />
     <Compile Include="Converter\CountryConverter.cs" />
     <Compile Include="Converter\DictToString.cs" />
     <Compile Include="Converter\NullBooleanConverter.cs" />
+    <Compile Include="Helper\BackgroundUpdateInformation.cs" />
     <Compile Include="Helper\HttpUtil.cs" />
     <Compile Include="Model\FilterModel.cs" />
     <Compile Include="ViewModel\ConnectedProxyViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\ErrorModalViewModel.cs" />
     <Compile Include="ViewModel\FilterViewModel.cs" />
+    <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProxyChecker.cs" />
