@@ -18,10 +18,10 @@ namespace proxyam.Model
     public class AccountModel : ObservableObject
     {
         private string _tarif;
-        private string _proxyCount;
-        private string _threads;
+        private string _proxyCount = "0";
+        private string _threads = "0";
         private string _status;
-        private string _end;
+        private string _end = "2018.02.01";
         private string _url;
         private string _activeThreads = "0";
 

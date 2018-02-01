@@ -8,64 +8,89 @@
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
              xmlns:model="clr-namespace:proxyam.Model"
              xmlns:converter="clr-namespace:proxyam.Converter"
-             mc:Ignorable="d" FontSize="16"
-             FontFamily="Regular" Foreground="White"
+             mc:Ignorable="d" FontSize="14" FontWeight="SemiBold"
+             FontFamily="Regular" Foreground="#212529"
              d:DesignHeight="60" d:DesignWidth="900" d:DataContext="{d:DesignInstance Type=viewModel:HeaderViewModel}">
     <UserControl.Resources>
-        <converter:CalculateDaysLeft x:Key="CalculateDaysLeft"></converter:CalculateDaysLeft>
+        <ResourceDictionary>
+            <converter:CalculateDaysLeft x:Key="CalculateDaysLeft"></converter:CalculateDaysLeft>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <DockPanel>
             <!--<ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
                           IsChecked="False" x:Name="MenuToggleButton" />-->
-            <TabPanel HorizontalAlignment="Center">
-                <StackPanel MinWidth="140" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="Тарифный план" TextAlignment="Center"  />
-                    <TextBlock Text="Unlimited Pack" TextAlignment="Center"  />
-                    <TextBlock Text="*  *  *  *  *" TextAlignment="Center" />
+            <TabPanel HorizontalAlignment="Center" >
+                <StackPanel MinWidth="140" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <StackPanel HorizontalAlignment="Left" Width="125">
+                        <TextBlock Text="Тарифный план"  Margin="4" Opacity="0.85"/>
+                        <TextBlock Text="Unlimited Pack" Foreground="#2196f3"  Margin="4" FontSize="16" FontWeight="Bold"/>
+                        <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
+                                             BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
+                                              Minimum="0" Maximum="20000" Value="{Binding Path=AccountModel.ProxyCount}"/>
+                    </StackPanel>
                 </StackPanel>
                 <TabPanel HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="Ваши прокси" TextAlignment="Center" />
-                            <TextBlock Text="{Binding Path=AccountModel.ProxyCount}" TextAlignment="Center" />
-                            <TextBlock Text="===========" TextAlignment="Center" />
+                            <StackPanel HorizontalAlignment="Center" Width="130">
+                                <TextBlock Text="Ваши прокси" Margin="4" Opacity="0.85"/>
+                                <TextBlock Text="{Binding Path=AccountModel.ProxyCount}" Margin="4" Foreground="#2196f3" FontSize="16" FontWeight="Bold"/>
+                                <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
+                                             BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
+                                             Minimum="0" Maximum="20000" Value="{Binding Path=AccountModel.ProxyCount}"/>
+                            </StackPanel>
                         </StackPanel>
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="Активных потоков" TextAlignment="Center" />
-                            <TextBlock TextAlignment="Center">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0}/{1}">
-                                        <Binding Path="AccountModel.ActiveThreads" />
-                                        <Binding Path="AccountModel.Threads" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                            <TextBlock Text="===========" TextAlignment="Center" />
+                            <StackPanel Width="130" HorizontalAlignment="Center">
+                                <TextBlock Text="Активных потоков" Margin="4" Opacity="0.85"/>
+                                <TextBlock Foreground="#2196f3" Margin="4" FontSize="16" FontWeight="Bold">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} / {1}">
+                                            <Binding Path="AccountModel.ActiveThreads" />
+                                            <Binding Path="AccountModel.Threads" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <ProgressBar Height="5"  BorderThickness="1" Background="White" 
+                                             BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
+                                             Margin="4" Minimum="0" Maximum="{Binding Path=AccountModel.Threads}" 
+                                             Value="{Binding Path=AccountModel.ActiveThreads}"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="Истекает через" TextAlignment="Center" />
-                            <TextBlock Text="{Binding Path=AccountModel.End,Converter={StaticResource CalculateDaysLeft}}" TextAlignment="Center" />
-                            <TextBlock Text="===========" TextAlignment="Center" />
+                            <StackPanel HorizontalAlignment="Center" Width="130">
+                                <TextBlock Text="Истекает" Margin="4" Opacity="0.85"/>
+                                <TextBlock Text="{Binding Path=AccountModel.End}" Foreground="#2196f3" Margin="4" FontSize="16" FontWeight="Bold"/>
+                                <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
+                                             BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
+                                             Minimum="0" Maximum="31" 
+                                             Value="10"/>
+                            </StackPanel>
                         </StackPanel>
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="Рабочие" TextAlignment="Center" />
-                            <TextBlock TextAlignment="Center">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0}/{1}">
-                                        <Binding Path="MainViewModel.ProxyChecker.GoodProxyCount" />
-                                        <Binding Path="AccountModel.ProxyCount" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                            <TextBlock Text="===========" TextAlignment="Center" />
+                            <StackPanel Width="130" HorizontalAlignment="Center">
+                                <TextBlock Text="Рабочие" Margin="4" Opacity="0.85"/>
+                                <TextBlock Margin="4" Foreground="#2196f3" FontSize="16" FontWeight="Bold">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} / {1}">
+                                            <Binding Path="MainViewModel.ProxyChecker.GoodProxyCount" />
+                                            <Binding Path="AccountModel.ProxyCount" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
+                                             BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
+                                             Minimum="0" Maximum="{Binding Path=AccountModel.ProxyCount}" 
+                                             Value="{Binding Path=MainViewModel.ProxyChecker.GoodProxyCount}"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </TabPanel>

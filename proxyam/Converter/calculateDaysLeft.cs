@@ -16,9 +16,9 @@ namespace proxyam.Converter
                 return "undefine";
 
             DateTime first = DateTime.Today;
-            DateTime last = DateTime.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            DateTime last = DateTime.Parse(value.ToString(),DateTimeFormatInfo.InvariantInfo);
             TimeSpan elapsed = last.AddDays(1).Subtract(first);
-            return $@"Осталось {elapsed.Days} дней";
+            return $@"{elapsed.Days.ToString()} дней";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

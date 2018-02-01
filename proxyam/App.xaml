@@ -16,6 +16,8 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
 
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/themes/materialdesigntheme.progressbar.xaml" />
+
                 <!-- Material Design: MahApps Compatibility -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml "/>
 

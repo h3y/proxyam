@@ -182,7 +182,12 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+    <!--<StackPanel>-->
     <Grid HorizontalAlignment="Stretch" Margin="0,0,-15,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <ContentControl Content="{Binding}">
             <ContentControl.Style>
                 <Style TargetType="ContentControl">
@@ -198,5 +203,8 @@
                 </Style>
             </ContentControl.Style>
         </ContentControl>
+        <ProgressBar Margin="2,2,17,2" Grid.Row="1" Maximum="100" Minimum="0" Value="10" Height="5" BorderThickness="1" 
+                     Background="White" BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}"
+                     HorizontalAlignment="Stretch" />
     </Grid>
 </UserControl>

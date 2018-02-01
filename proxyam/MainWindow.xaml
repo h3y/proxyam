@@ -29,7 +29,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <materialDesign:DialogHost Identifier="RootDialog">
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+        <materialDesign:DrawerHost>
             <!--<materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
                     <ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
@@ -53,7 +53,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <materialDesign:ColorZone Grid.Row="0" Padding="8" Visibility="{Binding Path=LoginPage.IsLogOn, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                          materialDesign:ShadowAssist.ShadowDepth="Depth4" Mode="PrimaryMid">
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="Light">
                     <view:Header DataContext="{Binding HeaderPage}"/>
                 </materialDesign:ColorZone>
                 <Grid Grid.Row="1">
