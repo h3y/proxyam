@@ -36,6 +36,9 @@ namespace proxyam.ViewModel
                 case "Filter":
                     _template = MainPage.FilterPage;
                     break;
+                case "Export":
+                    _template = MainPage.ExportPage;
+                    break;
             }
 
             //show the dialog

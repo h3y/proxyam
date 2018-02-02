@@ -57,6 +57,9 @@
             <DataTemplate DataType="{x:Type viewModel:FilterViewModel}">
                 <view:Filter />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ExportViewModel}">
+                <view:Export />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

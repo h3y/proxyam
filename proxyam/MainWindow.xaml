@@ -81,6 +81,11 @@
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
                             <Button Width="110" IsEnabled="{Binding Path=LoginPage.IsLogOn}"
                                     Style="{DynamicResource MaterialDesignRaisedButton}" Margin="0,10,0,0"
+                                    ToolTip="Export" Name="Export"
+                                    Command="{Binding Path=DialogPage.RunExtendedDialogCommand}" Content="Export"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                            <Button Width="110" IsEnabled="{Binding Path=LoginPage.IsLogOn}"
+                                    Style="{DynamicResource MaterialDesignRaisedButton}" Margin="0,10,0,0"
                                     ToolTip="Filter" Name="CheckProxy" Content="CheckProxy"
                                     Command="{Binding Path=ProxyChecker.CheckProxyCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />

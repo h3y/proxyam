@@ -74,8 +74,8 @@ namespace proxyam.ViewModel
                                 Properties.Settings.Default.apiKey = ApiKey;
                                 Properties.Settings.Default.Save();
                                 await MainPage.SetHomePage();
-                                IsLogOn = true;
                                 MainPage.HeaderPage.UpdateUserInformatio();
+                                IsLogOn = true;
                                 break;
                             case "err":
                                 MainPage.HttpUtil.MainPage.HttpUtil.ShowErrorWindow("LoginErrorTariff");

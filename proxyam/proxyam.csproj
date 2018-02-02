@@ -122,6 +122,7 @@
     <Compile Include="ViewModel\ConnectedProxyViewModel.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\ErrorModalViewModel.cs" />
+    <Compile Include="ViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModel\FilterViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -133,6 +134,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\ErrorModal.xaml.cs">
       <DependentUpon>ErrorModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Export.xaml.cs">
+      <DependentUpon>Export.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Filter.xaml.cs">
       <DependentUpon>Filter.xaml</DependentUpon>
@@ -186,6 +190,10 @@
     <Page Include="View\ErrorModal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Export.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Filter.xaml">
       <SubType>Designer</SubType>

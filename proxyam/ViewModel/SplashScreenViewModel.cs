@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight;
 
 namespace proxyam.ViewModel
 {
-    public class SplashScreenViewModel : ObservableObject
+    public class SplashScreenViewModel : ViewModelBase
     {
         private Visibility _showContent = Visibility.Visible;
         private Visibility _showSplash = Visibility.Hidden;
