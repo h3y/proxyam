@@ -8,12 +8,13 @@
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
              xmlns:model="clr-namespace:proxyam.Model"
              xmlns:converter="clr-namespace:proxyam.Converter"
-             mc:Ignorable="d" FontSize="14" FontWeight="SemiBold"
+             mc:Ignorable="d" FontSize="14" FontWeight="Bold"
              FontFamily="Regular" Foreground="#212529"
              d:DesignHeight="60" d:DesignWidth="900" d:DataContext="{d:DesignInstance Type=viewModel:HeaderViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
-            <converter:CalculateDaysLeft x:Key="CalculateDaysLeft"></converter:CalculateDaysLeft>
+            <converter:CalculateDaysLeft x:Key="CalculateDaysLeft"/>
+            <converter:TariffToRating x:Key="TariffToRating"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -23,11 +24,26 @@
             <TabPanel HorizontalAlignment="Center" >
                 <StackPanel MinWidth="140" VerticalAlignment="Center" HorizontalAlignment="Center" >
                     <StackPanel HorizontalAlignment="Left" Width="125">
-                        <TextBlock Text="Тарифный план"  Margin="4" Opacity="0.85"/>
+                        <TextBlock Text="Тарифный план"  Margin="4" Opacity="0.85" />
                         <TextBlock Text="Unlimited Pack" Foreground="#2196f3"  Margin="4" FontSize="16" FontWeight="Bold"/>
-                        <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
+                        <ItemsControl ItemsSource="{Binding Path=AccountModel.Tarif,Converter={StaticResource TariffToRating}}" Width="100" Height="14">
+                                <ItemsControl.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="-5"/>
+                                    </TransformGroup>
+                                </ItemsControl.RenderTransform>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                                <!--<ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
                                              BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
-                                              Minimum="0" Maximum="20000" Value="{Binding Path=AccountModel.ProxyCount}"/>
+                                              Minimum="0" Maximum="20000" Value="{Binding Path=AccountModel.ProxyCount}"/>-->
                     </StackPanel>
                 </StackPanel>
                 <TabPanel HorizontalAlignment="Stretch">
@@ -44,7 +60,7 @@
                         </StackPanel>
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <StackPanel Width="130" HorizontalAlignment="Center">
+                            <StackPanel Width="140" HorizontalAlignment="Center" Margin="10,0,0,0">
                                 <TextBlock Text="Активных потоков" Margin="4" Opacity="0.85"/>
                                 <TextBlock Foreground="#2196f3" Margin="4" FontSize="16" FontWeight="Bold">
                                     <TextBlock.Text>
@@ -56,7 +72,7 @@
                                 </TextBlock>
                                 <ProgressBar Height="5"  BorderThickness="1" Background="White" 
                                              BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
-                                             Margin="4" Minimum="0" Maximum="{Binding Path=AccountModel.Threads}" 
+                                             Margin="4,0,14,0" Minimum="0" Maximum="{Binding Path=AccountModel.Threads}" 
                                              Value="{Binding Path=AccountModel.ActiveThreads}"/>
                             </StackPanel>
                         </StackPanel>

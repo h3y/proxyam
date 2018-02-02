@@ -115,6 +115,7 @@
     <Compile Include="Converter\CountryConverter.cs" />
     <Compile Include="Converter\DictToString.cs" />
     <Compile Include="Converter\NullBooleanConverter.cs" />
+    <Compile Include="Converter\TariffToRating.cs" />
     <Compile Include="Helper\BackgroundUpdateInformation.cs" />
     <Compile Include="Helper\HttpUtil.cs" />
     <Compile Include="Model\FilterModel.cs" />
@@ -175,6 +176,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Style\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Rating.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

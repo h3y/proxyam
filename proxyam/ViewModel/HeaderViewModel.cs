@@ -16,11 +16,15 @@ namespace proxyam.ViewModel
     {
         public MainViewModel MainViewModel { get; }
         public AccountModel AccountModel { get; } = Singleton.AccountModel;
-        private string api = Properties.Settings.Default.apiKey;
+        private readonly string _api = Properties.Settings.Default.apiKey;
 
         public HeaderViewModel(MainViewModel main)
         {
             MainViewModel = main;
+        }
+
+        public void UpdateUserInformatio()
+        {
             UpdateThreads();
             UpdateHeaderInformation();
         }
@@ -29,7 +33,7 @@ namespace proxyam.ViewModel
         {
             Thread worker = new Thread(() =>
             {
-                var client = new RestClient($"http://api.proxy.am?key={api}&threads");
+                var client = new RestClient($"http://api.proxy.am?key={_api}&threads");
                 client.FollowRedirects = false;
                 var request = new RestRequest(Method.GET);
                 while (true)
@@ -46,7 +50,7 @@ namespace proxyam.ViewModel
         {
             Thread worker = new Thread(() =>
             {
-                var client = new RestClient($"http://api.proxy.am?switch={api}");
+                var client = new RestClient($"http://api.proxy.am?switch={_api}");
                 client.FollowRedirects = false;
                 var request = new RestRequest(Method.GET);
                 while (true)

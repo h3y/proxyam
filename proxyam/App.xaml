@@ -21,6 +21,8 @@
                 <!-- Material Design: MahApps Compatibility -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml "/>
 
+                <ResourceDictionary Source="pack://application:,,,/proxyam;component/Style/Rating.xaml" />
+
                 <ResourceDictionary Source="Resources/Lang.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
