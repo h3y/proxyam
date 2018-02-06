@@ -5,23 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:proxyam.View"
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModel:ExportViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             Height="300" Width="320" FontSize="20" FontWeight="SemiBold" FontFamily="Roboto"
+             d:DesignHeight="320" d:DesignWidth="300">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+            <StackPanel Margin="10">
                 <ItemsControl ItemsSource="{Binding Path=ProxyType}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding Path=Key}" IsChecked="{Binding Path=Value,Mode=TwoWay}"></CheckBox>
+                            <CheckBox Content="{Binding Path=Key}" IsChecked="{Binding Path=Value,Mode=TwoWay}" Margin="0,5"></CheckBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-            <StackPanel>
-                <Button Width="100">123</Button>
-                <Button Width="100">123</Button>
-                <ToggleButton Width="100">123</ToggleButton>
+            <StackPanel  Margin="10">
+                <Button Content="DOWNLOAD .xlsx" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4"/>
+                <Button Content="DOWNLOAD .txt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4"/>
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="4" VerticalAlignment="Bottom" Height="32" Width="180" VerticalContentAlignment="Center">
+                    <Grid>
+                        <TextBlock TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" Width="180">Auto save to file</TextBlock>
+                        <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </materialDesign:Card>
             </StackPanel>
         </StackPanel>
 
