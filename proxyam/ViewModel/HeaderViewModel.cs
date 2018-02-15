@@ -43,6 +43,7 @@ namespace proxyam.ViewModel
                 }
             });
             worker.Name = "ActiveThreadUpdater";
+            worker.IsBackground = true;
             worker.Start();
         }
 
@@ -61,6 +62,7 @@ namespace proxyam.ViewModel
                 }
             });
             worker.Name = "UpdateHeaderInformation";
+            worker.IsBackground = true;
             worker.Start();
         }
     }
