@@ -22,7 +22,7 @@
             </StackPanel>
             <StackPanel  Margin="10">
                 <Button Content="DOWNLOAD .xlsx" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4"/>
-                <Button Content="DOWNLOAD .txt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4"/>
+                <Button Content="DOWNLOAD .txt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4" Command="{Binding SaveTxtFileCommand}"/>
                 <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="4" VerticalAlignment="Bottom" Height="32" Width="180" VerticalContentAlignment="Center">
                     <Grid>
                         <TextBlock TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" Width="180">Auto save to file</TextBlock>
