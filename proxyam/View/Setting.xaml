@@ -32,12 +32,10 @@
                 <ComboBoxItem>Русский</ComboBoxItem>
             </ComboBox>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0" >
-            <CheckBox
-                x:Name="DisplaySelectedItemCheckBox"
-                IsThreeState="False">
-                Save program settings
-            </CheckBox>
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0" >
+            <CheckBox Content="Save program settings" IsThreeState="False"/>
+            <CheckBox Content="Auto save to file" IsThreeState="False"/>
+            <TextBlock Margin="25,0,0,0" x:Name="PatchTextBox" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"

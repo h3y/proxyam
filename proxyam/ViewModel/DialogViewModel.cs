@@ -47,6 +47,7 @@ namespace proxyam.ViewModel
 
             //check the result...
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+            
         }
 
         private void ExtendedOpenedEventHandler(object sender, DialogOpenedEventArgs eventargs)
@@ -56,7 +57,9 @@ namespace proxyam.ViewModel
 
         private async void ExtendedClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
-            if ((bool) eventArgs.Parameter == false) return;
+            if (eventArgs.Parameter == null || Boolean.Parse(eventArgs.Parameter.ToString()) == false)
+                return;
+
 
             //OK, lets cancel the close...
             eventArgs.Cancel();
@@ -76,6 +79,7 @@ namespace proxyam.ViewModel
 
             eventArgs.Session.Close(false);
         }
+
         //TODO in future to FilterViewModel
         public async Task ExecuteFilter()
         {

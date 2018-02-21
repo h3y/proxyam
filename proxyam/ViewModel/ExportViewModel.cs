@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -57,37 +58,53 @@ namespace proxyam.ViewModel
         {
             var saveFileDialog = new SaveFileDialog
             {
-                Title = "Save proxy to excel file",
-                CheckPathExists = true,
-                AddExtension = true,
-                FileName = "proxy.xlsx",
-                DefaultExt = "xlsx",
-                Filter = "Text files (*.xlsx)|*.xlsx",
+                Filter = "xlsx files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+                FilterIndex = 1,
                 RestoreDirectory = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                FileName = "proxy.xlsx",
             };
 
             if (saveFileDialog.ShowDialog() != true) return;
 
             var workbook = new XLWorkbook();
-            var worksheet = workbook.Worksheets.Add("Sample Sheet");
-            worksheet.Cell("A1").Value = "Hello World!";
-            worksheet.Cell("A1").Value = "Hello World!";
-            workbook.SaveAs("HelloWorld.xlsx");
+            var worksheet = workbook.Worksheets.Add("Proxy List");
+            int column = 1, row = 1;
+            foreach (var proxy in MainViewModel.ProxySwitcherPage.CachedProxyDataModel.Proxies
+                .Where(x => x.Status != Proxy.ProxyStatus.Bad).ToArray())
+            {
+                if (ProxyType[0].Value)
+                    worksheet.Cell(row, column++).Value = proxy.Proxies;
+                if (ProxyType[1].Value)
+                    worksheet.Cell(row, column++).Value = proxy.Ip;
+                if (ProxyType[2].Value)
+                    worksheet.Cell(row, column++).Value = proxy.Country;
+                if (ProxyType[3].Value)
+                    worksheet.Cell(row, column++).Value = proxy.City;
+                if (ProxyType[4].Value)
+                    worksheet.Cell(row, column++).Value = proxy.Speed;
+                if (ProxyType[5].Value)
+                    worksheet.Cell(row, column++).Value = proxy.Uptime;
+
+                column = 1;
+                row++;
+            }
+
+            await Task.Run(() =>
+            {
+                worksheet.Columns().AdjustToContents();
+                workbook.SaveAs(saveFileDialog.FileName);
+                Process.Start(new ProcessStartInfo("explorer.exe", " /select, " + saveFileDialog.FileName));
+            });
         }
 
         private async void SaveTxtFileMethod()
         {
             var saveFileDialog = new SaveFileDialog
             {
-                Title = "Save proxy to file",
-                CheckPathExists = true,
-                AddExtension = true,
-                FileName = "proxy.txt",
-                DefaultExt = "txt",
-                Filter = "Text files (*.txt)|*.txt",
+                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                FilterIndex = 1,
                 RestoreDirectory = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                FileName = "proxy.txt",
             };
 
             if (saveFileDialog.ShowDialog() != true) return;
@@ -95,7 +112,7 @@ namespace proxyam.ViewModel
             using (var stream = new StreamWriter(saveFileDialog.FileName,false))
             {
                 var line = new List<string>();
-                foreach (var proxy in MainViewModel.ProxySwitcherPage.CachedProxyDataModel.Proxies)
+                foreach (var proxy in MainViewModel.ProxySwitcherPage.CachedProxyDataModel.Proxies.Where(x=>x.Status != Proxy.ProxyStatus.Bad).ToArray())
                 {
                     if (ProxyType[0].Value)
                         line.Add(proxy.Proxies);
@@ -113,6 +130,7 @@ namespace proxyam.ViewModel
                     await stream.WriteLineAsync(line.Aggregate((a, b) => a + ',' + b));
                     line.Clear();
                 }
+                Process.Start(new ProcessStartInfo("explorer.exe", " /select, " + saveFileDialog.FileName));
             }
         }
 

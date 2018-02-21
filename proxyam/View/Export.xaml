@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="proxyam.View.Export"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,30 +6,31 @@
              xmlns:local="clr-namespace:proxyam.View"
              xmlns:viewModel="clr-namespace:proxyam.ViewModel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModel:ExportViewModel}"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="proxyam.View.Export"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type={x:Type viewModel:ExportViewModel}}"
              Height="300" Width="320" FontSize="20" FontWeight="SemiBold" FontFamily="Roboto"
              d:DesignHeight="320" d:DesignWidth="300">
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
             <StackPanel Margin="10">
-                <ItemsControl ItemsSource="{Binding Path=ProxyType}">
+                <ItemsControl ItemsSource="{Binding ProxyType}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding Path=Key}" IsChecked="{Binding Path=Value,Mode=TwoWay}" Margin="0,5"></CheckBox>
+                            <CheckBox Content="{Binding Key}" IsChecked="{Binding Value, Mode=TwoWay}" Margin="0,5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-            <StackPanel  Margin="10">
-                <Button Content="DOWNLOAD .xlsx" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4"/>
-                <Button Content="DOWNLOAD .txt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="4" Command="{Binding SaveTxtFileCommand}"/>
-                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="4" VerticalAlignment="Bottom" Height="32" Width="180" VerticalContentAlignment="Center">
-                    <Grid>
-                        <TextBlock TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" Width="180">Auto save to file</TextBlock>
-                        <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Center" />
-                    </Grid>
-                </materialDesign:Card>
+            <StackPanel Margin="10" VerticalAlignment="Center">
+                <Button Content="DOWNLOAD .txt"  HorizontalAlignment="Left" Width="180" Margin="4,5" Command="{Binding SaveTxtFileCommand}"/>
+                <Button Content="DOWNLOAD .xlsx" HorizontalAlignment="Left" Width="180" Margin="4,5" Command="{Binding SaveXlsxFileCommand}"/>
             </StackPanel>
+            <!--<materialDesign:Card VerticalAlignment="Bottom" Height="32" materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="4" VerticalContentAlignment="Center" Width="180">
+                <Grid>
+                    <TextBlock TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" Width="180">Auto save to file</TextBlock>
+                    <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
+            </materialDesign:Card>-->
         </StackPanel>
 
     </Grid>

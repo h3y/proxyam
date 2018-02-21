@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:proxyam"
         xmlns:view="clr-namespace:proxyam.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="proxy.am"
         MinHeight="384" MinWidth="512"
@@ -28,7 +29,7 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
         </ResourceDictionary>
     </Window.Resources>
-    <materialDesign:DialogHost Identifier="RootDialog">
+    <materialDesign:DialogHost Identifier="RootDialog" CloseOnClickAway="True" CloseOnClickAwayParameter="false">
         <materialDesign:DrawerHost>
             <!--<materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
