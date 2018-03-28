@@ -17,7 +17,7 @@ namespace proxyam.ViewModel
         public MainViewModel MainPage { get; }
         private ProxyModel _proxyDataModel;
         private ProxyModel _cachedProxyDataModel;
-
+        private Proxy _selecterProxy;
 
         public ProxySwitcherViewModel(MainViewModel mainPage)
         {
@@ -26,7 +26,13 @@ namespace proxyam.ViewModel
             _cachedProxyDataModel = new ProxyModel();
            
         }
-       
+
+        public Proxy SelecterProxy
+        {
+            get => _selecterProxy;
+            set => Set(() => SelecterProxy, ref _selecterProxy, value);
+        }
+
         public ProxyModel ProxyDataModel
         {
             get => _proxyDataModel;

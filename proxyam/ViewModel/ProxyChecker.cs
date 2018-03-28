@@ -15,9 +15,10 @@ namespace proxyam.ViewModel
     {
         public readonly MainViewModel MainPage;
         public Task CheckingTask;
-        private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
         public List<Thread> ThreadPool { get; private set; }
         public ICommand CheckProxyCommand { get; private set; }
+        public ICommand CheckSelectedProxyCommand { get; private set; }
         private readonly object _threadLocker = new object();
 
         private int _goodProxyCount;
@@ -36,10 +37,17 @@ namespace proxyam.ViewModel
             set => Set(() => BadProxyCount, ref _badProxyCount, value);
         }
 
+        public int CurrentProxyIndex
+        {
+            get => _currentProxyIndex;
+            set => Set(() => CurrentProxyIndex, ref _currentProxyIndex, value);
+        }
+
         public ProxyChecker(MainViewModel mainPage)
         {
             MainPage = mainPage;
             CheckProxyCommand = new RelayCommand<object>(ExecuteProxyCommand);
+            CheckSelectedProxyCommand = new RelayCommand<Proxy>(CheckSelectedProxyMethod);
             ThreadPool = new List<Thread>();
         }
 
@@ -80,6 +88,11 @@ namespace proxyam.ViewModel
             }
         }
 
+        private void CheckSelectedProxyMethod(Proxy proxy)
+        {
+           Task.Run(()=> CheckProxy(proxy));
+        }
+
         private void AsyncCheckingProxys()
         {
             var obj = _threadLocker;
@@ -89,13 +102,13 @@ namespace proxyam.ViewModel
                 Proxy proxy;
                 lock (obj)
                 {
-                    if (_currentProxyIndex >= countProxies)
+                    if (CurrentProxyIndex >= countProxies)
                     {
                         _cancelTokenSource.Cancel();
                         return;
                     }
 
-                    proxy = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies[_currentProxyIndex++];
+                    proxy = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies[CurrentProxyIndex++];
                 }
 
                 CheckProxy(proxy);
@@ -113,9 +126,10 @@ namespace proxyam.ViewModel
             checkProxyButton.IsEnabled = false;
 
             ThreadPool.Clear();
-            _currentProxyIndex = 0;
+            CurrentProxyIndex = 0;
             GoodProxyCount = 0;
             BadProxyCount = 0;
+            _cancelTokenSource = new CancellationTokenSource();
 
             for (int i = 0; i < 100; i++)
             {

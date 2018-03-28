@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ClosedXML.Excel;
@@ -53,6 +54,38 @@ namespace proxyam.ViewModel
         private ObservableCollection<KeyValue> _proxyType;
         public ICommand SaveTxtFileCommand => new RelayCommand(SaveTxtFileMethod);
         public ICommand SaveXlsxFileCommand => new RelayCommand(SaveXlsxFileMethod);
+        public ICommand CopyProxyToClipboardCommand => new RelayCommand<Proxy>(CopyProxyToClipboardMethod);
+        public ICommand CopyProxyRowToClipboardCommand => new RelayCommand<Proxy>(CopyProxyRowToClipboardMethod);
+
+        private void CopyProxyRowToClipboardMethod(Proxy proxy)
+        {
+            try
+            {
+                string res = $"{proxy.Proxies};{proxy.Ip};{proxy.Country};{proxy.City};{proxy.Speed};{proxy.Uptime}";
+                Clipboard.Clear();
+                Clipboard.Flush();
+                Clipboard.SetDataObject(res);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void CopyProxyToClipboardMethod(Proxy proxy)
+        {
+            try
+            {
+                Clipboard.Clear();
+                Clipboard.Flush();
+                Clipboard.SetDataObject(proxy.Proxies.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         private async void SaveXlsxFileMethod()
         {

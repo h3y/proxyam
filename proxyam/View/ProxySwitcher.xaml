@@ -15,9 +15,47 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:CountryConverter x:Key="CountryConverter" />
             <converter:CompareSizeConverter x:Key="CompareSizeConverter" />
+            <ContextMenu x:Key="DataGridContextMenu" Padding="0">
+                <MenuItem Header="Connect to selected proxy"
+                              Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
+                              CommandParameter="{Binding Path=SelecterProxy}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Check" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Disconnect" 
+                          Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
+                          CommandParameter="{Binding Path=SelecterProxy}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="WindowClose" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Check selected proxy"
+                          Command="{Binding Path=MainPage.ProxyChecker.CheckSelectedProxyCommand}" 
+                          CommandParameter="{Binding Path=SelecterProxy}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Reload" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Copy proxy to clipboard"
+                          Command="{Binding Path=MainPage.ExportPage.CopyProxyToClipboardCommand}" 
+                          CommandParameter="{Binding Path=SelecterProxy}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="NoteOutline" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Copy row to clipboard"
+                          Command="{Binding Path=MainPage.ExportPage.CopyProxyRowToClipboardCommand}" 
+                          CommandParameter="{Binding Path=SelecterProxy}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="ContentCopy" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
             <DataTemplate x:Key="LargeGrid">
                 <DataGrid CanUserSortColumns="True" Name="DataGrid" Background="Transparent"
                           ItemsSource="{Binding Path=CachedProxyDataModel.Proxies}"
+                          SelectedItem="{Binding Path=SelecterProxy, Mode=TwoWay}"
                           CanUserAddRows="False" AutoGenerateColumns="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Visible"
@@ -28,12 +66,13 @@
                           VirtualizingStackPanel.IsVirtualizing="True"
                           VirtualizingStackPanel.ScrollUnit="Pixel"
                           FontFamily="Roboto" FontSize="14" FontWeight="SemiBold" 
-                          IsSynchronizedWithCurrentItem="True">
+                          IsSynchronizedWithCurrentItem="True" ContextMenu="{StaticResource DataGridContextMenu}">
+                   
                     <DataGrid.InputBindings>
                         <MouseBinding
                             MouseAction="LeftDoubleClick"
                             Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
-                            CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
+                            CommandParameter="{Binding Path=SelecterProxy}"/>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="40*">
@@ -107,6 +146,7 @@
             <DataTemplate x:Key="MiniGrid">
                 <DataGrid CanUserSortColumns="True" Name="DataGrid" Background="Transparent"
                           ItemsSource="{Binding Path=CachedProxyDataModel.Proxies}"
+                          SelectedItem="{Binding Path=SelecterProxy, Mode=TwoWay}"
                           CanUserAddRows="False" AutoGenerateColumns="False"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Visible"
@@ -117,12 +157,12 @@
                           VirtualizingStackPanel.IsVirtualizing="True"
                           VirtualizingStackPanel.ScrollUnit="Pixel"
                           FontFamily="Roboto" FontSize="14" FontWeight="SemiBold" 
-                          IsSynchronizedWithCurrentItem="True">
+                          IsSynchronizedWithCurrentItem="True" ContextMenu="{StaticResource DataGridContextMenu}">
                     <DataGrid.InputBindings>
                         <MouseBinding
                             MouseAction="LeftDoubleClick"
                             Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
-                            CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"/>
+                            CommandParameter="{Binding Path=SelecterProxy}"/>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="40*">
@@ -203,7 +243,7 @@
                 </Style>
             </ContentControl.Style>
         </ContentControl>
-        <ProgressBar Margin="2,2,17,2" Grid.Row="1" Maximum="100" Minimum="0" Value="10" Height="5" BorderThickness="1" 
+        <ProgressBar Margin="2,2,17,2" Grid.Row="1" Maximum="{Binding CachedProxyDataModel.Proxies.Count}" Minimum="0" Value="{Binding MainPage.ProxyChecker.CurrentProxyIndex}" Height="5" BorderThickness="1" 
                      Background="White" BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}"
                      HorizontalAlignment="Stretch" />
     </Grid>
