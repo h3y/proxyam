@@ -85,6 +85,7 @@ namespace proxyam.ViewModel
                 FilterModel.CurrentMinSpeed = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Min(a => a.Speed);
                 FilterModel.CurrentMaxUptime = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Max(a => a.Uptime);
                 FilterModel.CurrentMinUptime = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Min(a => a.Uptime);
+				MainPage.SettingPage.LoadAppSettingsCommand.Execute(null);
             });
         }
 

@@ -93,10 +93,10 @@ namespace proxyam.ViewModel
            Task.Run(()=> CheckProxy(proxy));
         }
 
-        private void AsyncCheckingProxys()
+        private void AsyncCheckingProxys(ProxyModel proxyModel)
         {
             var obj = _threadLocker;
-            int countProxies = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count;
+            int countProxies = proxyModel.Proxies.Count;
             while (!_cancelTokenSource.Token.IsCancellationRequested)
             {
                 Proxy proxy;
@@ -108,7 +108,7 @@ namespace proxyam.ViewModel
                         return;
                     }
 
-                    proxy = MainPage.ProxySwitcherPage.ProxyDataModel.Proxies[CurrentProxyIndex++];
+                    proxy = proxyModel.Proxies[CurrentProxyIndex++];
                 }
 
                 CheckProxy(proxy);
@@ -133,9 +133,9 @@ namespace proxyam.ViewModel
 
             for (int i = 0; i < 100; i++)
             {
-                if (i >= MainPage.ProxySwitcherPage.ProxyDataModel.Proxies.Count)
+                if (i >= MainPage.ProxySwitcherPage.CachedProxyDataModel.Proxies.Count)
                     return;
-                ThreadPool.Add(new Thread(AsyncCheckingProxys));
+                ThreadPool.Add(new Thread(()=>AsyncCheckingProxys(MainPage.ProxySwitcherPage.CachedProxyDataModel)));
                 ThreadPool[i].IsBackground = true;
                 ThreadPool[i].Start();
             }

@@ -33,7 +33,7 @@
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0" >
-            <CheckBox Content="Save program settings" IsThreeState="False"/>
+            <CheckBox Content="Save program settings" IsThreeState="False" IsChecked="{Binding Path=SaveSettings}"/>
             <CheckBox Content="Auto save to file" IsThreeState="False"/>
             <TextBlock Margin="25,0,0,0" x:Name="PatchTextBox" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
         </StackPanel>

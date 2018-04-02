@@ -77,7 +77,8 @@ namespace proxyam.ViewModel
                     break;
             }
 
-            eventArgs.Session.Close(false);
+			
+			eventArgs.Session.Close(false);
         }
 
         //TODO in future to FilterViewModel

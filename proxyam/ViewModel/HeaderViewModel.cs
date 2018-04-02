@@ -31,7 +31,7 @@ namespace proxyam.ViewModel
 
         private void UpdateThreads()
         {
-            Thread worker = new Thread(() =>
+            Task.Run(() =>
             {
                 var client = new RestClient($"http://api.proxy.am?key={_api}&threads");
                 client.FollowRedirects = false;
@@ -42,14 +42,14 @@ namespace proxyam.ViewModel
                     Thread.Sleep(5000);
                 }
             });
-            worker.Name = "ActiveThreadUpdater";
-            worker.IsBackground = true;
-            worker.Start();
-        }
+			//worker.Name = "ActiveThreadUpdater";
+			//worker.IsBackground = true;
+			//worker.Start();
+		}
 
         private void UpdateHeaderInformation()
         {
-            Thread worker = new Thread(() =>
+	        Task.Run(() =>
             {
                 var client = new RestClient($"http://api.proxy.am?switch={_api}");
                 client.FollowRedirects = false;
@@ -61,9 +61,6 @@ namespace proxyam.ViewModel
                     Thread.Sleep(15000);
                 }
             });
-            worker.Name = "UpdateHeaderInformation";
-            worker.IsBackground = true;
-            worker.Start();
         }
     }
 }
