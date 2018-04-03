@@ -72,7 +72,7 @@ namespace proxyam.ViewModel
 
 		private async void LoadAppSettingsMethod()
 		{
-			if (_mainPage?.FilterPage?.FilterModel == null || _mainPage.FilterPage.FilterModel.Country.Count <= 0 || !SaveSettings)
+			if (_mainPage?.FilterPage?.FilterModel == null || _mainPage.FilterPage.FilterModel.Country.Count <= 0 || !SaveSettings || !File.Exists(_settingFileName))
 				return;
 			var currentFilterModel = _mainPage.FilterPage.FilterModel;
 			try

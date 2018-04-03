@@ -74,11 +74,11 @@ namespace proxyam.ViewModel
                     await ExecuteFilter();
                     break;
                 case SettingViewModel _:
+
                     break;
             }
 
-			
-			eventArgs.Session.Close(false);
+		    eventArgs.Session.Close(false);
         }
 
         //TODO in future to FilterViewModel

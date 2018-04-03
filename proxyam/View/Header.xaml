@@ -24,7 +24,7 @@
             <TabPanel HorizontalAlignment="Center" >
                 <StackPanel MinWidth="140" VerticalAlignment="Center" HorizontalAlignment="Center" >
                     <StackPanel HorizontalAlignment="Left" Width="125">
-                        <TextBlock Text="Тарифный план"  Margin="4" Opacity="0.85" />
+                        <TextBlock Text="{DynamicResource HeaderTariff}"  Margin="4" Opacity="0.85" />
                         <TextBlock Text="Unlimited Pack" Foreground="#2196f3"  Margin="4" FontSize="16" FontWeight="Bold"/>
                         <ItemsControl ItemsSource="{Binding Path=AccountModel.Tarif,Converter={StaticResource TariffToRating}}" Width="100" Height="14">
                                 <ItemsControl.RenderTransform>
@@ -51,7 +51,7 @@
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <StackPanel HorizontalAlignment="Center" Width="130">
-                                <TextBlock Text="Ваши прокси" Margin="4" Opacity="0.85"/>
+                                <TextBlock Text="{DynamicResource HeaderProxyCount}" Margin="4" Opacity="0.85"/>
                                 <TextBlock Text="{Binding Path=AccountModel.ProxyCount}" Margin="4" Foreground="#2196f3" FontSize="16" FontWeight="Bold"/>
                                 <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
                                              BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
@@ -61,7 +61,7 @@
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <StackPanel Width="140" HorizontalAlignment="Center" Margin="10,0,0,0">
-                                <TextBlock Text="Активных потоков" Margin="4" Opacity="0.85"/>
+                                <TextBlock Text="{DynamicResource HeaderActiveProxyThread}" Margin="4" Opacity="0.85"/>
                                 <TextBlock Foreground="#2196f3" Margin="4" FontSize="16" FontWeight="Bold">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} / {1}">
@@ -82,7 +82,7 @@
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <StackPanel HorizontalAlignment="Center" Width="130">
-                                <TextBlock Text="Истекает" Margin="4" Opacity="0.85"/>
+                                <TextBlock Text="{DynamicResource HeaderEndedTime}" Margin="4" Opacity="0.85"/>
                                 <TextBlock Text="{Binding Path=AccountModel.End}" Foreground="#2196f3" Margin="4" FontSize="16" FontWeight="Bold"/>
                                 <ProgressBar Height="5"  BorderThickness="1" Background="White" Margin="4"
                                              BorderBrush="{Binding Foreground,RelativeSource={RelativeSource Self}}" 
@@ -93,7 +93,7 @@
                         <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Opacity="0.4" />
                         <StackPanel MinWidth="160" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <StackPanel Width="130" HorizontalAlignment="Center">
-                                <TextBlock Text="Рабочие" Margin="4" Opacity="0.85"/>
+                                <TextBlock Text="{DynamicResource HeaderWorkProxy}" Margin="4" Opacity="0.85"/>
                                 <TextBlock Margin="4" Foreground="#2196f3" FontSize="16" FontWeight="Bold">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} / {1}">

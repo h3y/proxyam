@@ -22,8 +22,8 @@
                 </ItemsControl>
             </StackPanel>
             <StackPanel Margin="10" VerticalAlignment="Center">
-                <Button Content="DOWNLOAD .txt"  HorizontalAlignment="Left" Width="180" Margin="4,5" Command="{Binding SaveTxtFileCommand}"/>
-                <Button Content="DOWNLOAD .xlsx" HorizontalAlignment="Left" Width="180" Margin="4,5" Command="{Binding SaveXlsxFileCommand}"/>
+                <Button Content="{DynamicResource ExportProxyToTxt}"  HorizontalAlignment="Left" Width="180" Margin="4,5" Command="{Binding SaveTxtFileCommand}"/>
+                <Button Content="{DynamicResource ExportProxyToXlsx}" HorizontalAlignment="Left" Width="180" Margin="4,5" Command="{Binding SaveXlsxFileCommand}"/>
             </StackPanel>
             <!--<materialDesign:Card VerticalAlignment="Bottom" Height="32" materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="4" VerticalContentAlignment="Center" Width="180">
                 <Grid>

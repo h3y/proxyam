@@ -24,4 +24,58 @@
     <system:String x:Key="InternetFailure">Check internet connection</system:String>
     <!--Request Errors-->
 
+    <!--Header-->
+    <system:String x:Key="HeaderTariff">Tariff plan</system:String>
+    <system:String x:Key="HeaderProxyCount">Proxy count</system:String>
+    <system:String x:Key="HeaderActiveProxyThread">Active threads</system:String>
+    <system:String x:Key="HeaderEndedTime">End</system:String>
+    <system:String x:Key="HeaderWorkProxy">Works</system:String>
+    <!--Header-->
+
+    <!--DataGridHeader-->
+    <system:String x:Key="DataGridProxy">Proxy</system:String>
+    <system:String x:Key="DataGridIp">IP</system:String>
+    <system:String x:Key="DataGridCountry">Country</system:String>
+    <system:String x:Key="DataGridCity">City</system:String>
+    <system:String x:Key="DataGridSpeed">Speed</system:String>
+    <system:String x:Key="DataGridUptime">Uptime</system:String>
+    <!--DataGridHeader-->
+
+    <!--ConnectedProxyStatus-->
+    <system:String x:Key="ConnectedProxyStatusDisconnect">DISCONNECT</system:String>
+    <system:String x:Key="ConnectedProxyStatusСonnect">CONNECTED</system:String>
+    <system:String x:Key="ConnectedProxyOnline">ONLINE</system:String>
+    <!--ConnectedProxyStatus-->
+
+    <!--ExportProxy-->
+    <system:String x:Key="ExportProxyToTxt">DOWNLOAD .txt</system:String>
+    <system:String x:Key="ExportProxyToXlsx">DOWNLOAD .xlsx</system:String>
+    <!--ExportProxy-->
+
+    <!--FilterProxy-->
+    <system:String x:Key="FilterProxySelectAll">Select All</system:String>
+    <system:String x:Key="FilterProxyClear">Clear</system:String>
+    <system:String x:Key="FilterProxyCountry">COUNTRYS</system:String>
+    <system:String x:Key="FilterProxySpeed">SPEED</system:String>
+    <system:String x:Key="FilterProxyUptime">UPTIME</system:String>
+    <system:String x:Key="FilterProxyCity">CITYs (kiev;moskow)</system:String>
+    <!--FilterProxy-->
+
+    <!--DialogButtons-->
+    <system:String x:Key="DialogButtonAccept">ACCEPT</system:String>
+    <system:String x:Key="DialogButtonCancel">CANCEL</system:String>
+    <!--DialogButtons-->
+
+    <!--SettingsPage-->
+    <system:String x:Key="SettingsLanguage">Language: </system:String>
+    <system:String x:Key="SettingsSave">Save program settings</system:String>
+    <!--SettingsPage-->
+
+    <!--MainMenuButton-->
+    <system:String x:Key="MainMenuButtonSetting">Setting</system:String>
+    <system:String x:Key="MainMenuButtonFilter">Filter</system:String>
+    <system:String x:Key="MainMenuButtonExport">Export</system:String>
+    <system:String x:Key="MainMenuButtonCheckProxy">Check Proxy</system:String>
+    <!--MainMenuButton-->
+
 </ResourceDictionary>

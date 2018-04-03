@@ -23,5 +23,59 @@
     <system:String x:Key="ReceiveFailure">Не удалось загрузить ответ от HTTP-сервера</system:String>
     <system:String x:Key="InternetFailure">Проверьте интернет подключение</system:String>
     <!--Request Errors-->
-    
+
+    <!--Header-->
+    <system:String x:Key="HeaderTariff">Тарифный плана</system:String>
+    <system:String x:Key="HeaderProxyCount">Ваши прокси</system:String>
+    <system:String x:Key="HeaderActiveProxyThread">Активных потоков</system:String>
+    <system:String x:Key="HeaderEndedTime">Истекает</system:String>
+    <system:String x:Key="HeaderWorkProxy">Рабочие</system:String>
+    <!--Header-->
+
+    <!--DataGridHeader-->
+    <system:String x:Key="DataGridProxy">Прокси</system:String>
+    <system:String x:Key="DataGridIp">ИП</system:String>
+    <system:String x:Key="DataGridCountry">Страна</system:String>
+    <system:String x:Key="DataGridCity">Город</system:String>
+    <system:String x:Key="DataGridSpeed">Скорость</system:String>
+    <system:String x:Key="DataGridUptime">Время</system:String>
+    <!--DataGridHeader-->
+
+    <!--ConnectedProxyStatus-->
+    <system:String x:Key="ConnectedProxyStatusDisconnect">ОТКЛЮЧИТСЯ</system:String>
+    <system:String x:Key="ConnectedProxyStatusСonnect">ПОДКЛЮЧЕН</system:String>
+    <system:String x:Key="ConnectedProxyOnline">ОНЛАЙН</system:String>
+    <!--ConnectedProxyStatus-->
+
+    <!--ExportProxy-->
+    <system:String x:Key="ExportProxyToTxt">Сохранить .txt</system:String>
+    <system:String x:Key="ExportProxyToXlsx">Сохранить .xlsx</system:String>
+    <!--ExportProxy-->
+
+    <!--FilterProxy-->
+    <system:String x:Key="FilterProxySelectAll">Выбрать Все</system:String>
+    <system:String x:Key="FilterProxyClear">Очистить</system:String>
+    <system:String x:Key="FilterProxyCountry">СТРАНЫ</system:String>
+    <system:String x:Key="FilterProxySpeed">СКОРОСТЬ</system:String>
+    <system:String x:Key="FilterProxyUptime">ВРЕМЯ</system:String>
+    <system:String x:Key="FilterProxyCity">ГОРОДА (kiev;moskow)</system:String>
+    <!--FilterProxy-->
+
+    <!--DialogButtons-->
+    <system:String x:Key="DialogButtonAccept">ПРИНЯТЬ</system:String>
+    <system:String x:Key="DialogButtonCancel">ОТКЛОНИТЬ</system:String>
+    <!--DialogButtons-->
+
+    <!--SettingsPage-->
+    <system:String x:Key="SettingsLanguage">Язык: </system:String>
+    <system:String x:Key="SettingsSave">Сохранять настройки программы</system:String>
+    <!--SettingsPage-->
+
+    <!--MainMenuButton-->
+    <system:String x:Key="MainMenuButtonSetting">Настроки</system:String>
+    <system:String x:Key="MainMenuButtonFilter">Фильтр</system:String>
+    <system:String x:Key="MainMenuButtonExport">Экспорт</system:String>
+    <system:String x:Key="MainMenuButtonCheckProxy">Проверить</system:String>
+    <!--MainMenuButton-->
+
 </ResourceDictionary>

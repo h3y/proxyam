@@ -21,16 +21,16 @@
                              Foreground="#AFEA00" FontSize="16"
                              FontWeight="SemiBold" FontFamily="Regular" BorderThickness="0"
                              ActionButtonStyle="{DynamicResource MaterialDesignSnackbarActionButton}">
-        <materialDesign:SnackbarMessage ActionContent="DISCONNECT" ActionCommand="{Binding Path=ConnectToProxyCommand}"
+        <materialDesign:SnackbarMessage ActionContent="{DynamicResource ConnectedProxyStatusDisconnect}" ActionCommand="{Binding Path=ConnectToProxyCommand}"
                                         ActionCommandParameter="{Binding Path=ActiveProxy}">
             <materialDesign:SnackbarMessage.Content>
                 <Grid>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="CONNECTED" TextAlignment="Left" MinWidth="100" />
+                        <TextBlock Text="{DynamicResource ConnectedProxyStatusСonnect}" TextAlignment="Left" MinWidth="100" />
                         <TextBlock Text="{Binding Path=ActiveProxy.Ip}" TextAlignment="Right" MinWidth="110" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Text="ONLINE" FontSize="10" MinWidth="40" RenderTransformOrigin="0.5,0.5">
+                        <TextBlock Text="{DynamicResource ConnectedProxyOnline}" FontSize="10" MinWidth="40" RenderTransformOrigin="0.5,0.5">
                             <TextBlock.RenderTransform>
                                 <TransformGroup>
                                     <TranslateTransform Y="16" />

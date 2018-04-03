@@ -108,11 +108,11 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Binding="{Binding Path=Proxies}" Header="proxy" Width="170*" />
+                        <DataGridTextColumn Binding="{Binding Path=Proxies}" Header="{DynamicResource DataGridProxy}" Width="170*" />
 
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Ip}" Header="ip" Width="125*" />
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Ip}" Header="{DynamicResource DataGridIp}" Width="125*" />
 
-                        <DataGridTemplateColumn Header="country" SortMemberPath="Country" CanUserSort="True"
+                        <DataGridTemplateColumn Header="{DynamicResource DataGridCountry}" SortMemberPath="Country" CanUserSort="True"
                                                 Width="85*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -132,13 +132,13 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=City}" Header="city"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=City}" Header="{DynamicResource DataGridCity}"
                                                                    Width="95*" />
                         <materialDesign:MaterialDataGridTextColumn Binding="{Binding Path=Speed, StringFormat=0 Kbs}"
-                                                                   Header="speed" Width="95*" />
+                                                                   Header="{DynamicResource DataGridSpeed}" Width="95*" />
                         <materialDesign:MaterialDataGridTextColumn
                             Binding="{Binding Path=Uptime, StringFormat=0 Min\\.}"
-                            Header="uptime" Width="90*" />
+                            Header="{DynamicResource DataGridUptime}" Width="90*" />
 
                     </DataGrid.Columns>
                 </DataGrid>
@@ -196,8 +196,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding Path=Proxies}" Header="proxy" Width="170*" />
-                        <DataGridTemplateColumn Header="country" SortMemberPath="Country" CanUserSort="True"
+                        <DataGridTextColumn Binding="{Binding Path=Proxies}" Header="{DynamicResource DataGridProxy}" Width="170*" />
+                        <DataGridTemplateColumn Header="{DynamicResource DataGridCountry}" SortMemberPath="Country" CanUserSort="True"
                                                 Width="85*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

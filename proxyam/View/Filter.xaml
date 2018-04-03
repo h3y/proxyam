@@ -33,7 +33,7 @@
                 <StackPanel>
                     <WrapPanel>
                         <materialDesign:PackIcon Foreground="#2196F3" Kind="Earth" Height="28" Width="28" />
-                        <TextBlock Text="COUNTRYS" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                        <TextBlock Text="{DynamicResource FilterProxyCountry}" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
                                    FontFamily="Roboto Light" />
                     </WrapPanel>
                     <ScrollViewer CanContentScroll="True" MaxHeight="200" Margin="0,10,0,0">
@@ -53,10 +53,10 @@
                     </ScrollViewer>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Border Padding="10,10,15,10">
-                            <Button Content="Select All" IsDefault="True"  Command="{Binding Path=SelectAllProxyCommand}"/>
+                            <Button Content="{DynamicResource FilterProxySelectAll}" IsDefault="True"  Command="{Binding Path=SelectAllProxyCommand}"/>
                         </Border>
                         <Border Padding="10,10,15,10">
-                            <Button Content="Clear" IsDefault="True" Command="{Binding Path=UnSelectAllProxyCommand}" />
+                            <Button Content="{DynamicResource FilterProxyClear}" IsDefault="True" Command="{Binding Path=UnSelectAllProxyCommand}" />
                         </Border>
                     </StackPanel>
                 </StackPanel>
@@ -65,7 +65,7 @@
         <StackPanel Grid.Row="1">
             <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
                 <materialDesign:PackIcon Foreground="#2196F3" Kind="Speedometer" Height="28" Width="28" />
-                <TextBlock Text="SPEED" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                <TextBlock Text="{DynamicResource FilterProxySpeed}" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
                            FontFamily="Roboto Light" />
             </StackPanel>
             <Grid Margin="15,0,15,0">
@@ -79,13 +79,13 @@
                                       UpperValue="{Binding Path=FilterModel.MaxSpeed, Mode=TwoWay}"
                                       LowerValue="{Binding Path=FilterModel.MinSpeed, Mode=TwoWay}"
                                       Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
-                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearSpeedCommand}" />
+                <Button Grid.Column="1" Content="{DynamicResource FilterProxyClear}" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearSpeedCommand}" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="2">
             <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
                 <materialDesign:PackIcon Foreground="#2196F3" Kind="CameraTimer" Height="28" Width="28" />
-                <TextBlock Text="UPTIME" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                <TextBlock Text="{DynamicResource FilterProxyUptime}" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
                            FontFamily="Roboto Light" />
             </StackPanel>
             <Grid Margin="15,0,15,0">
@@ -99,13 +99,13 @@
                                       UpperValue="{Binding Path=FilterModel.MaxUptime, Mode=TwoWay}"
                                       LowerValue="{Binding Path=FilterModel.MinUptime, Mode=TwoWay}"
                                       Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
-                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearUptimeCommand}"/>
+                <Button Grid.Column="1" Content="{DynamicResource FilterProxyClear}" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearUptimeCommand}"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="3">
             <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
                 <materialDesign:PackIcon Foreground="#2196F3" Kind="City" Height="28" Width="28" />
-                <TextBlock Text="CITYs (kiev;moskow)" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
+                <TextBlock Text="{DynamicResource FilterProxyCity}" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"
                            FontFamily="Roboto Light" />
             </StackPanel>
             <Grid Margin="15,0,15,0">
@@ -114,23 +114,21 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Margin="0,0,20,0" HorizontalAlignment="Stretch" Text="{Binding Path=FilterModel.City, Mode=TwoWay}"></TextBox>
-                <Button Grid.Column="1" Content="Clear" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearCitysCommand}" />
+                <Button Grid.Column="1" Content="{DynamicResource FilterProxyClear}" IsDefault="True" Width="179" HorizontalAlignment="Right" Command="{Binding ClearCitysCommand}" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Content="{DynamicResource DialogButtonAccept}">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
-                ACCEPT
             </Button>
             <Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Content="{DynamicResource DialogButtonCancel}">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>
-                CANCEL
             </Button>
         </StackPanel>
     </Grid>
