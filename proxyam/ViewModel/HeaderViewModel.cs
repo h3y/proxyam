@@ -33,14 +33,22 @@ namespace proxyam.ViewModel
         {
             Task.Run(() =>
             {
-                var client = new RestClient($"http://api.proxy.am?key={_api}&threads");
-                client.FollowRedirects = false;
-                var request = new RestRequest(Method.GET);
-                while (true)
-                {
-                    client.ExecuteAsync(request, resp => { AccountModel.ActiveThreads = resp.Content; });
-                    Thread.Sleep(5000);
-                }
+	            try
+	            {
+		            var client = new RestClient($"http://api.proxy.am?key={_api}&threads");
+		            client.FollowRedirects = false;
+		            var request = new RestRequest(Method.GET);
+		            while (true)
+		            {
+			            client.ExecuteAsync(request, resp => { AccountModel.ActiveThreads = resp.Content; });
+			            Thread.Sleep(5000);
+		            }
+				}
+	            catch (Exception e)
+	            {
+		            Console.WriteLine(e);
+	            }
+                
             });
 			//worker.Name = "ActiveThreadUpdater";
 			//worker.IsBackground = true;
@@ -51,15 +59,23 @@ namespace proxyam.ViewModel
         {
 	        Task.Run(() =>
             {
-                var client = new RestClient($"http://api.proxy.am?switch={_api}");
-                client.FollowRedirects = false;
-                var request = new RestRequest(Method.GET);
-                while (true)
-                {
-                    client.ExecuteAsync(request,
-                        resp => { AccountModel.FillData(JsonConvert.DeserializeObject<AccountModel>(resp.Content)); });
-                    Thread.Sleep(15000);
-                }
+	            try
+	            {
+		            var client = new RestClient($"http://api.proxy.am?switch={_api}");
+		            client.FollowRedirects = false;
+		            var request = new RestRequest(Method.GET);
+		            while (true)
+		            {
+			            client.ExecuteAsync(request,
+				            resp => { AccountModel.FillData(JsonConvert.DeserializeObject<AccountModel>(resp.Content)); });
+			            Thread.Sleep(15000);
+		            }
+				}
+	            catch (Exception e)
+	            {
+		            Console.WriteLine(e);
+	            }
+                
             });
         }
     }

@@ -16,35 +16,35 @@
             <converter:CountryConverter x:Key="CountryConverter" />
             <converter:CompareSizeConverter x:Key="CompareSizeConverter" />
             <ContextMenu x:Key="DataGridContextMenu" Padding="0">
-                <MenuItem Header="Connect to selected proxy"
+                <MenuItem Header="{DynamicResource ContextMenuConnect}"
                               Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
                               CommandParameter="{Binding Path=SelecterProxy}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Check" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Disconnect" 
+                <MenuItem Header="{DynamicResource ContextMenuDisconnect}" 
                           Command="{Binding Path=MainPage.ConnectedProxyPage.ConnectToProxyCommand}" 
                           CommandParameter="{Binding Path=SelecterProxy}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="WindowClose" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Check selected proxy"
+                <MenuItem Header="{DynamicResource ContextMenuCheck}"
                           Command="{Binding Path=MainPage.ProxyChecker.CheckSelectedProxyCommand}" 
                           CommandParameter="{Binding Path=SelecterProxy}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Reload" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Copy proxy to clipboard"
+                <MenuItem Header="{DynamicResource ContextMenuCopyProxy}"
                           Command="{Binding Path=MainPage.ExportPage.CopyProxyToClipboardCommand}" 
                           CommandParameter="{Binding Path=SelecterProxy}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="NoteOutline" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Copy row to clipboard"
+                <MenuItem Header="{DynamicResource ContextMenuCopyRow}"
                           Command="{Binding Path=MainPage.ExportPage.CopyProxyRowToClipboardCommand}" 
                           CommandParameter="{Binding Path=SelecterProxy}">
                     <MenuItem.Icon>

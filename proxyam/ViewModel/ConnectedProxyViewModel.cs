@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using proxyam.Helper;
 using proxyam.Model;
 
 namespace proxyam.ViewModel
@@ -45,8 +46,9 @@ namespace proxyam.ViewModel
                     ActiveProxy.Status = _oldProxyStatus;
                     ActiveProxy = null;
                     StopTimer();
-                    //Dissconnect
-                    return;
+					RunProxyCh.Stop();
+
+					return;
                 }
 
                 ActiveProxy.Status = _oldProxyStatus;
@@ -57,8 +59,8 @@ namespace proxyam.ViewModel
             _oldProxyStatus = proxy.Status;
             ActiveProxy.Status = Proxy.ProxyStatus.Connected;
             StartTimer();
-            //Connect to Proxy;
-        }
+			RunProxyCh.Start(ActiveProxy.Proxies);
+		}
 
         public Proxy ActiveProxy
         {

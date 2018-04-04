@@ -78,4 +78,12 @@
     <system:String x:Key="MainMenuButtonCheckProxy">Проверить</system:String>
     <!--MainMenuButton-->
 
+    <!--DataGridContextMenu-->
+    <system:String x:Key="ContextMenuConnect">Подключится к прокси</system:String>
+    <system:String x:Key="ContextMenuDisconnect">Отключится</system:String>
+    <system:String x:Key="ContextMenuCheck">Проверить прокси</system:String>
+    <system:String x:Key="ContextMenuCopyProxy">Скопировать прокси в буфер</system:String>
+    <system:String x:Key="ContextMenuCopyRow">Скопировать строку в буфер</system:String>
+    <!--DataGridContextMenu-->
+    
 </ResourceDictionary>

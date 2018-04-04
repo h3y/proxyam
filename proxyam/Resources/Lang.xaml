@@ -78,4 +78,12 @@
     <system:String x:Key="MainMenuButtonCheckProxy">Check Proxy</system:String>
     <!--MainMenuButton-->
 
+    <!--DataGridContextMenu-->
+    <system:String x:Key="ContextMenuConnect">Connect to selected proxy</system:String>
+    <system:String x:Key="ContextMenuDisconnect">Disconnect</system:String>
+    <system:String x:Key="ContextMenuCheck">Check selected proxy</system:String>
+    <system:String x:Key="ContextMenuCopyProxy">Copy proxy to clipboard</system:String>
+    <system:String x:Key="ContextMenuCopyRow">Copy row to clipboard</system:String>
+    <!--DataGridContextMenu-->
+
 </ResourceDictionary>
